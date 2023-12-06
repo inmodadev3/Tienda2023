@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Scroll-invisible::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.Scroll-invisible::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.fade-in {
+    animation: opacityMode;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+}
+
+
+@keyframes opacityMode{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+.reset-animation {
+    animation-name: none; /* Desactiva la animación */
+    animation-duration: 0.1s; /* Establece una duración corta para reiniciar rápidamente la animación */
+  }
+  
