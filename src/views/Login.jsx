@@ -101,7 +101,7 @@ export const Login = () => {
                                 setclave(e.target.value)
                             }}
                         />
-                        <label className='text-gray-600 text-xs my-2 font-medium mb-2 underline cursor-pointer hover:text-blue-700'>Recuperar Contraseña</label>
+                        {/* <label className='text-gray-600 text-xs my-2 font-medium mb-2 underline cursor-pointer hover:text-blue-700'>Recuperar Contraseña</label> */}
                     </div>
 
                     <button
@@ -114,7 +114,7 @@ export const Login = () => {
                     </button>
                     <span className='block text-center text-xl mt-4 font-medium'>¿No tienes cuenta?</span>
                     <div className='flex justify-center items-center'>
-                        <span className=' cursor-pointer underline hover:text-blue-700 font-medium'>Registrate</span>
+                        <a href='https://panel.inmodafantasy.com.co/#/clientes/registro' target='_blank' className=' cursor-pointer underline hover:text-blue-700 font-medium'>Registrate</a>
                     </div>
 
                 </section>
