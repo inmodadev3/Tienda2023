@@ -255,18 +255,6 @@ export const Tienda = () => {
             <section className='block md:flex justify-between px-4 md:mx-24 mt-24'>
                 <div className='' ref={titulo_tiendaRef}></div>
                 <div className='flex flex-col w-full xs:w-1/2 md:w-auto'>
-                    {/* <select
-                        value={optionSelected}
-                        onChange={(e) => { setoptionSelected(e.target.value) }}
-                        className='outline-none p-2 border-2 rounded pr-20'
-                    >
-                        <option disabled value={5}>Ordenar por:</option>
-                        <option value={0} className={`${optionSelected == 0 ? "font-medium bg-gray-300 " : ""}`}>Ordernar por relevancia</option>
-                        <option value={1} className={`${optionSelected == 1 ? "font-medium bg-gray-300 " : ""}`}>Precio de menor a mayor</option>
-                        <option value={2} className={`${optionSelected == 2 ? "font-medium bg-gray-300 " : ""}`}>Precio de mayor a menor</option>
-                        <option value={3} className={`${optionSelected == 3 ? "font-medium bg-gray-300 " : ""}`}>Nombre A-Z</option>
-                        <option value={4} className={`${optionSelected == 4 ? "font-medium bg-gray-300 " : ""}`}>Nombre Z-A</option>
-                    </select> */}
                     <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-blue-500 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all`}>
                         <h3 className='text-center w-full font-bold tracking-widest'>Categorias</h3>
                     </div>

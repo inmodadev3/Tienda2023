@@ -17,7 +17,6 @@ export const Carrito = () => {
 
     const [productos, setproductos] = useState([])
     const [isLoadingProductos, setisLoadingProductos] = useState(true)
-    const [cantidad, setcantidad] = useState(0)
     const [idEliminar, setidEliminar] = useState('')
     const [datosProductoEditar, setdatosProductoEditar] = useState({})
     const [carritoTotalProductos, setcarritoTotalProductos] = useState(0)
@@ -60,7 +59,7 @@ export const Carrito = () => {
             if (usuario && visibleModalEditarProducto == false) {
                 consultar_productos_database()
             } else {
-
+                setisLoadingProductos(false)
             }
         }
     }, [usuario, visibleModalEditarProducto])
