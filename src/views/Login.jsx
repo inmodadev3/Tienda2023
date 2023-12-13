@@ -1,18 +1,34 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Inmoda_Logo } from '../utilities/Imagenes'
 import { BiArrowBack } from 'react-icons/bi'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import RUTAS from '../routes/PATHS'
 import Axios from '../utilities/Axios'
+import { UsuarioContext } from '../routes/Routers'
+import { default_price } from '../routes/QueryParams'
 
 export const Login = () => {
     const navigate = useNavigate()
     const url = useLocation()
     const querySearchParams = new URLSearchParams(url.search)
+    const precio_default = querySearchParams.get(default_price)
+    const { usuario } = useContext(UsuarioContext)
+
     const [identificacion, setidentificacion] = useState('')
     const [clave, setclave] = useState('')
     const [validando, setvalidando] = useState(false)
+
+    useEffect(() => {
+        if (precio_default) {
+            navigate(RUTAS.TIENDA)
+        } else {
+            if (localStorage.getItem('usuario') !== null) {
+                navigate(RUTAS.TIENDA)
+            }
+        }
+    }, [])
+
 
     const Login = async () => {
         setvalidando(true)
