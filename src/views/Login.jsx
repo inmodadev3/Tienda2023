@@ -21,10 +21,10 @@ export const Login = () => {
 
     useEffect(() => {
         if (precio_default) {
-            navigate(RUTAS.TIENDA)
+            navigate(`${RUTAS.TIENDA}?${querySearchParams}`)
         } else {
             if (localStorage.getItem('usuario') !== null) {
-                navigate(RUTAS.TIENDA)
+                navigate(`${RUTAS.TIENDA}?${querySearchParams}`)
             }
         }
     }, [])
