@@ -1,7 +1,5 @@
 import React from 'react'
 import { FiAlertCircle } from 'react-icons/fi'
-import { ToastContainer,toast } from 'react-toastify'
-
 
 export const ModalDeleteProducto = ({ closeEvent, texto, eventoAceptar }) => {
 
@@ -24,7 +22,6 @@ export const ModalDeleteProducto = ({ closeEvent, texto, eventoAceptar }) => {
                     >Aceptar</button>
                 </div>
             </section>
-            <ToastContainer/>
         </div>
     )
 }

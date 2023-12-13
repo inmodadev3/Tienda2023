@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import Axios from '../../utilities/Axios'
-import { ConsultarImagenes, FormateoNumberInt } from '../../utilities/Helpers'
+import { ConsultarImagenes } from '../../utilities/Helpers'
 import { UsuarioContext } from '../../routes/Routers'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { default_price, texto_buscar } from '../../routes/QueryParams'
-import { Modal_Productos } from '../Productos/Modal_Productos'
 import RUTAS from '../../routes/PATHS'
 import { IoMdClose } from 'react-icons/io'
 import { BiSearch } from 'react-icons/bi'
@@ -129,7 +128,9 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
             </div>
 
             <div className='absolute top-4 left-4 flex lg:hidden'>
-                <button onClick={() => { setviewMobileSearch(true) }} className='bg-gray-200 p-2 rounded-full'><AiOutlineSearch size={25} /></button>
+                <button onClick={() => { setviewMobileSearch(true) }} className='bg-gray-200 p-2 rounded-full' aria-label="Abrir el buscador en versión móvil">
+                    <span><AiOutlineSearch size={25} /></span>
+                </button>
             </div>
 
 

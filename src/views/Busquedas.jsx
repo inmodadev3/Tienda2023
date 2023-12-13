@@ -5,9 +5,7 @@ import RUTAS from '../routes/PATHS';
 import Axios from '../utilities/Axios';
 import { useState } from 'react';
 import { Productos } from '../components/Tienda/Productos';
-import { Buscador } from '../components/Tienda/Buscador';
-import { AiOutlineArrowUp, AiOutlineUser } from 'react-icons/ai';
-import { Inmoda_Logo, Tienda_Banner } from '../utilities/Imagenes';
+import { AiOutlineArrowUp } from 'react-icons/ai';
 import { Modal_Productos } from '../components/Productos/Modal_Productos';
 import { ToastContainer } from 'react-toastify'
 import { Header } from '../components/Header/Header';

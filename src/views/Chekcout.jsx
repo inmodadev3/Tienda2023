@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import Axios from '../utilities/Axios';
 import RUTAS from '../routes/PATHS';
-import { Inmoda_Logo } from '../utilities/Imagenes'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { default_price, vendedor } from '../routes/QueryParams';
 import { UsuarioContext } from '../routes/Routers';
@@ -19,7 +18,6 @@ export const Chekcout = () => {
     const querySearchParams = new URLSearchParams(url.search);
     const [carrito, setcarrito] = useState([])
 
-    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     let precio_default = querySearchParams.get(default_price)
 
     const { usuario, setUsuario } = useContext(UsuarioContext)

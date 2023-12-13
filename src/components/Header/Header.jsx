@@ -67,6 +67,7 @@ export const Header = ({ setisViewModalProducto, setproducto_Modal, setcarritoTo
                 src={Tienda_Banner}
                 alt='Banner de inicio para tienda de INMODA FANTASY S.A.S'
                 className='w-full h-full object-cover'
+                loading='lazy'
             />
             {/* Logo Inmoda */}
             <div className='justify-center items-center flex w-32 h-32 bg-white rounded-full absolute -bottom-12 md:-bottom-20 left-0 right-0 m-auto md:right-auto md:left-20'>

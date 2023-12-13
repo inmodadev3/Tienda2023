@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ConsultarImagenes, FormateoNumberInt } from '../utilities/Helpers'
-import { InputCantidad } from '../components/Inputs/InputCantidad'
-import { AiOutlineClose, AiOutlineEdit } from 'react-icons/ai'
+import { FormateoNumberInt } from '../utilities/Helpers'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ModalDeleteProducto } from '../components/Carrito/ModalDeleteProducto'
 import { ToastContainer, toast } from 'react-toastify'
@@ -129,10 +127,11 @@ export const Carrito = () => {
     const consultar_productos_database = async () => {
         try {
             const response = await Axios.get(`pedidos/productos/${usuario.StrIdTercero}`)
+            console.log(response)
             setproductos(response.data.data)
             setcarritoTotalProductos(response.data.data ? response.data.data.length : 0)
         } catch (error) {
-            toast.error("Ha ocurrido un error cargando la información del carrito")
+            /* toast.error("Ha ocurrido un error cargando la información del carrito") */
         } finally {
             setisLoadingProductos(false)
         }

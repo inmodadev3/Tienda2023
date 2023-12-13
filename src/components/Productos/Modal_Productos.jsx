@@ -73,6 +73,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
         } else {
           if (usuario) {
             const response = await Axios.get(`pedidos/producto?id=${usuario.StrIdTercero}&p=${producto_Modal.referencia}`)
+
             if (response.data.data.length > 0) {
               setidProductoDB(response.data.data[0].id)
               setcantidad(response.data.data[0].intCantidad ? response.data.data[0].intCantidad : 1)
@@ -131,7 +132,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
       subTotal: producto_Modal.precio * cantidad,
       imagen: producto_info.images[0].strArchivo,
       observacion: observacion,
-      unidad:producto_info.data[0].StrUnidad
+      unidad: producto_info.data[0].StrUnidad
     }
 
     if (precio_default) {
@@ -151,7 +152,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
             }
           })
         } else {
-          if (setcarritoTotalProductos) {
+          if (setcarritoTotalProductos && typeof setcarritoTotalProductos === 'function') {
             setcarritoTotalProductos((prevData) => {
               return prevData + 1;
             })
@@ -192,7 +193,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
               cantidad: cantidad,
               observacion: observacion,
               id: idProductoDB,
-              strIdCliente:usuario.StrIdTercero
+              strIdCliente: usuario.StrIdTercero
             })
 
             if (response.data) {
@@ -231,9 +232,11 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                 position: 'top-right',
                 hideProgressBar: true
               })
-              setcarritoTotalProductos((prevData) => {
-                return prevData + 1
-              })
+              if (setcarritoTotalProductos && typeof setcarritoTotalProductos === 'function') {
+                setcarritoTotalProductos((prevData) => {
+                  return prevData + 1;
+                })
+              }
               setisViewModalProducto(false)
             }
           }

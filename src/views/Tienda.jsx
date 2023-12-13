@@ -21,11 +21,8 @@ export const Tienda = () => {
     /* Validacion de carga de la aplicacion */
     /* CARGA Y VISIBILIDAD DE DATOS*/
     const [isLoadCategorias, setisLoadCategorias] = useState(false)
-    const [isViewUserOPtions, setisViewUserOPtions] = useState(false)
     const [isViewModalCategoriasMobile, setisViewModalCategoriasMobile] = useState(false)
     const [isLoadingProductos, setisLoadingProductos] = useState(false)
-    /* FILTRO DE PRODUCTOS */
-    const [optionSelected, setoptionSelected] = useState(5)
 
     /* CATEGORIAS Y SUBCATEGORIAS */
     const [categorias, setcategorias] = useState([])
@@ -43,8 +40,7 @@ export const Tienda = () => {
     const [arrayProductos, setarrayProductos] = useState(null)
     const [carritoTotalProductos, setcarritoTotalProductos] = useState(0)
     //USUARIO
-    const { usuario, setUsuario } = useContext(UsuarioContext)
-    const [viewUsuario, setviewUsuario] = useState(true)
+    const { setUsuario } = useContext(UsuarioContext)
 
     //MODAL DE PRODUCTO
     const [isViewModalProducto, setisViewModalProducto] = useState(false)
@@ -59,7 +55,6 @@ export const Tienda = () => {
         let carrito = JSON.parse(localStorage.getItem("carrito"))
 
         if (precio_default) {
-            setviewUsuario(false)
             if (carrito) {
                 setcarritoTotalProductos(carrito.length ? carrito.length : 0)
             }
@@ -255,8 +250,8 @@ export const Tienda = () => {
             <section className='block md:flex justify-between px-4 md:mx-24 mt-24'>
                 <div className='' ref={titulo_tiendaRef}></div>
                 <div className='flex flex-col w-full xs:w-1/2 md:w-auto'>
-                    <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-blue-500 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all`}>
-                        <h3 className='text-center w-full font-bold tracking-widest'>Categorias</h3>
+                    <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-blue-700 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all`}>
+                        <p className='text-center w-full font-bold tracking-widest'>Categorias</p>
                     </div>
                 </div>
             </section>

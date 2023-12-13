@@ -66,10 +66,11 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 src={`${(producto && producto.StrArchivo !== null) ? ConsultarImagenes(producto.StrArchivo) : ""} `}
                 loading='lazy'
                 className='w-full h-72 rounded-t-lg object-contain cursor-pointer lg:object-cover'
+                alt={`${producto.StrDescripcion}`}
             />
             <div className='px-2 mt-8'>
                 <p className='font-medium w-52 lg:w-40 truncate'>{producto.StrDescripcion ? producto.StrDescripcion : "Undefined"}</p>
-                <p className='font-medium text-gray-400 text-sm'>{producto.StrIdProducto ? producto.StrIdProducto : "Undefined"}</p>
+                <p className='font-medium text-slate-700 text-sm'>{producto.StrIdProducto ? producto.StrIdProducto : "Undefined"}</p>
                 <p className='font-medium text-blue-700'>${precio ? FormateoNumberInt(precio) : "Error"} / <span>{producto.StrUnidad ? producto.StrUnidad : "Undefined"}</span></p>
             </div>
 
