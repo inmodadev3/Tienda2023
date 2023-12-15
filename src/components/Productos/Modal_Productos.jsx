@@ -130,7 +130,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
       descripcion: producto_info.data[0].StrDescripcion,
       cantidad: cantidad,
       subTotal: producto_Modal.precio * cantidad,
-      imagen: producto_info.images[0].strArchivo,
+      imagen: producto_info.images[0] ? producto_info.images[0].strArchivo : "",
       observacion: observacion,
       unidad: producto_info.data[0].StrUnidad
     }
@@ -220,7 +220,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                 strUnidadMedida: producto_info.data[0].StrUnidad,
                 strObservacion: observacion,
                 intPrecio: producto_Modal.precio,
-                strRutaImg: producto_info.images[0].strArchivo
+                strRutaImg: producto_info.images[0] ? producto_info.images[0].strArchivo  : ""
               }
             })
 
