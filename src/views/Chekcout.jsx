@@ -41,6 +41,7 @@ export const Chekcout = () => {
     const [isEnviandoPedido, setisEnviandoPedido] = useState(false)
     const [isPedidoEnviado, setisPedidoEnviado] = useState(false)
     const [pedidoIdDB, setpedidoIdDB] = useState(0)
+    const [totalDB, settotalDB] = useState(0)
 
     useEffect(() => {
         consultar_Carrito()
@@ -185,8 +186,7 @@ export const Chekcout = () => {
                             seller:querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
                             arrProductos:carrito
                         })
-
-                        setpedidoIdDB(response.data.data)
+                        setpedidoIdDB(response.data.data.lastId)
                         toast.success("Pedido enviado correctamente")
                         setisPedidoEnviado(true)
                         localStorage.removeItem('carrito')
@@ -201,7 +201,9 @@ export const Chekcout = () => {
                                 strObservacion: observacion,
                                 seller:querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
                             })
-                            setpedidoIdDB(response.data.data)
+                            console.log(response.data)
+                            setpedidoIdDB(response.data.data.lastId)
+                            settotalDB(response.data.data.total)
                             toast.success("Pedido enviado correctamente")
                             setisPedidoEnviado(true)
                         } catch (error) {
@@ -282,11 +284,16 @@ export const Chekcout = () => {
         try {
             const seller = querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138
             let pedido = pedidoIdDB
+            let total = totalDB
             pedido = pedido.toString().trim()
+            total = total.toString().trim()
             const response = await Axios.get(`pedidos/vendedor_telefono/${seller}`)
-            let telefono = (response.data.data)
+            let telefono = (response.data.data) || '315 6353687'
             telefono = telefono.replace(" ", "")
-            window.open(`https://${isMobile() ? "api" : "web"}.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(`🖐🏻 Hola.\n🛍️ Acabo de realizar un pedido desde la tienda en linea.\n💰🏦 Regálame los datos de consignación y el valor del envío 🛵 para continuar con la compra.\n📄Este es mi pedido https://panel.inmodafantasy.com.co/#/pedidos/pdf/${pedido}`)}`).focus()
+
+            console.log(pedido,totalDB)
+
+            window.open(`https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(`🖐🏻 Hola.\n🛍️ Acabo de realizar un pedido desde la tienda en linea por un valor de $ ${total}.\n💰🏦 Regálame los datos de consignación y el valor del envío 🛵 para continuar con la compra.\n📄Este es mi pedido https://panel.inmodafantasy.com.co/#/pedidos/pdf/${pedido}`)}`).focus()
             navigate(`${RUTAS.TIENDA}?${querySearchParams}`)
         } catch (error) {
 
