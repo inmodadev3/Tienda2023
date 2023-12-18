@@ -293,7 +293,7 @@ export const Chekcout = () => {
 
             console.log(pedido,totalDB)
 
-            window.open(`https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(`🖐🏻 Hola.\n🛍️ Acabo de realizar un pedido desde la tienda en linea por un valor de $ ${total}.\n💰🏦 Regálame los datos de consignación y el valor del envío 🛵 para continuar con la compra.\n📄Este es mi pedido https://panel.inmodafantasy.com.co/#/pedidos/pdf/${pedido}`)}`).focus()
+            window.open(`https://${isMobile() ? "api" : "web"}.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(`🖐🏻 Hola.\n🛍️ Acabo de realizar un pedido desde la tienda en linea por un valor de $ ${total}.\n💰🏦 Regálame los datos de consignación y el valor del envío 🛵 para continuar con la compra.\n📄Este es mi pedido https://panel.inmodafantasy.com.co/#/pedidos/pdf/${pedido}`)}`).focus()
             navigate(`${RUTAS.TIENDA}?${querySearchParams}`)
         } catch (error) {
 
