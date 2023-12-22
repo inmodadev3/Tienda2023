@@ -1,0 +1,21 @@
+@keyframes moverDerecha {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+.letrero_iva {
+    white-space: nowrap;
+    animation: moverDerecha 5s linear infinite;
+    color: rgb(255, 127, 53);
+    z-index: 0;
+    font-weight: bold;
+    font-size: 12px;
+    font-style:italic;
+    text-transform: uppercase;
+}

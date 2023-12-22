@@ -176,7 +176,7 @@ export const Carrito = () => {
                             <p className='text-lg font-medium'>{productos.length}</p>
                         </article>
                         <article className='mt-4 flex justify-between py-2 border-b-2 border-b-gray-500 px-2'>
-                            <p className='font-bold text-gray-800'>Sub Total:</p>
+                            <p className='font-bold text-gray-800'>Total:</p>
                             <p className='text-lg font-medium'>${FormateoNumberInt(calcularTotal())}</p>
                         </article>
 
