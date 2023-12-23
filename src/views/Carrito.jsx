@@ -175,6 +175,8 @@ export const Carrito = () => {
                             <p className='font-bold text-gray-800'>Cantidad de productos:</p>
                             <p className='text-lg font-medium'>{productos.length}</p>
                         </article>
+                        <p className='text-[14px] font-medium text-slate-500 text-center'>El total se encuentra con el iva incluido*</p>
+
                         <article className='mt-4 flex justify-between py-2 border-b-2 border-b-gray-500 px-2'>
                             <p className='font-bold text-gray-800'>Total:</p>
                             <p className='text-lg font-medium'>${FormateoNumberInt(calcularTotal())}</p>
