@@ -74,7 +74,7 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 <p className='font-medium text-slate-700 text-sm'>{producto.StrIdProducto ? producto.StrIdProducto : "Undefined"}</p>
                 <p className='font-medium text-blue-700'>${precio ? FormateoNumberInt(precio) : "Error"} / <span>{producto.StrUnidad ? producto.StrUnidad : "Undefined"}</span></p>
                 <div className='letrero_iva'>
-                    * Producto con iva incluido *
+                    * Precio con iva incluido *
                 </div>
             </div>
 
