@@ -349,7 +349,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                   <p className='font-normal text-gray-600 text-normal my-4'>{producto_info.data[0] ? producto_info.data[0].StrDescripcionCorta : ""}</p>
                   <textarea
                     className='w-full h-40 outline-none border-2 border-gray-500 resize-none rounded-xl p-4'
-                    placeholder='Observacion...'
+                    placeholder='Observacion, Por favor digitar en este espacio el estilo y color deseado.'
                     value={observacion}
                     onChange={(e) => { setobservacion(e.target.value) }}
                   />
