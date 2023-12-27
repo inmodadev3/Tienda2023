@@ -11,7 +11,7 @@
 
 .letrero_iva {
     white-space: nowrap;
-    animation: moverDerecha 5s linear infinite;
+    /*animation: moverDerecha 5s linear infinite;*/
     color: rgb(255, 127, 53);
     z-index: 0;
     font-weight: bold;
