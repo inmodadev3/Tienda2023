@@ -66,7 +66,7 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
             <img
                 src={`${(producto && producto.StrArchivo !== null) ? ConsultarImagenes(producto.StrArchivo) : ""} `}
                 loading='lazy'
-                className='w-full h-72 rounded-t-lg object-contain cursor-pointer lg:object-cover'
+                className='w-full h-72 rounded-t-lg object-contain cursor-pointer '
                 alt={`${producto.StrDescripcion}`}
             />
             <div className='px-2 mt-8'>
