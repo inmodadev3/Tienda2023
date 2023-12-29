@@ -220,7 +220,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                 strUnidadMedida: producto_info.data[0].StrUnidad,
                 strObservacion: observacion,
                 intPrecio: producto_Modal.precio,
-                strRutaImg: producto_info.images[0] ? producto_info.images[0].strArchivo  : ""
+                strRutaImg: producto_info.images[0] ? producto_info.images[0].strArchivo : ""
               }
             })
 
@@ -269,14 +269,16 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
   }
 
 
+  console.log(producto_info)
+
   return (
-    <div className='fixed w-screen h-screen top-0 left-0 z-20 flex justify-center items-center'>
-      <div onClick={() => { setisViewModalProducto(false) }} className='absolute w-full h-screen bg-black/70 z-10'></div>
+    <div className='fixed top-0 left-0 z-20 flex items-center justify-center w-screen h-screen'>
+      <div onClick={() => { setisViewModalProducto(false) }} className='absolute z-10 w-full h-screen bg-black/70'></div>
       {
         producto_info !== null ?
           (
-            <section className='z-20 flex flex-col justify-between bg-white w-screen h-screen rounded-md py-8 overflow-y-scroll mb-4 relative  lg:w-8/12 lg:h-5/6 lg:flex-row'>
-              <div className='bg-whie flex-1 flex flex-col items-center justify-center gap-y-12'>
+            <section className='relative z-20 flex flex-col justify-between w-screen h-screen py-8 mb-4 overflow-y-scroll bg-white rounded-md lg:w-10/12 lg:h-5/6 lg:flex-row'>
+              <div className='flex flex-col items-center justify-center flex-1 bg-whie gap-y-12'>
                 <div>
                   <img
                     src={`${(producto_info && imagen_principal !== "") ? ConsultarImagenes(imagen_principal) : ``}`}
@@ -291,20 +293,20 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                         key={index}
                         src={ConsultarImagenes(imagen.strArchivo)}
                         alt={`Imagen de producto ${producto_info.data[0].StrDescripcion} con referencia ${producto_info.data[0].StrIdProducto}`}
-                        className='w-24 h-24 cursor-pointer border-2 rounded'
+                        className='w-24 h-24 border-2 rounded cursor-pointer'
                         onClick={() => { handleImagenPrincipalChange(imagen.strArchivo) }}
                       />
                     ))
                   }
                 </div>
               </div>
-              <div className='bg-white flex-1 mx-8 flex flex-col justify-between'>
+              <div className='flex flex-col justify-between flex-1 mx-8 bg-white'>
                 {
                   productoExistente && <span className='text-red-500'> * El producto ya se encuentra agregado *</span>
                 }
                 <div>
-                  <p className='font-bold text-2xl text-blue-500'>{producto_info.data[0] ? producto_info.data[0].StrDescripcion : "Error ..."}</p>
-                  <p className='font-medium text-gray-800 text-normal my-2 '>
+                  <p className='text-2xl font-bold text-blue-500'>{producto_info.data[0] ? producto_info.data[0].StrDescripcion : "Error ..."}</p>
+                  <p className='my-2 font-medium text-gray-800 text-normal '>
                     <span className='font-bold'>Referencia: </span>
                     {producto_info.data[0] ? producto_info.data[0].StrIdProducto : "Error ..."}
                   </p>
@@ -312,11 +314,11 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
 
 
 
-                  <div className='flex gap-x-6'>
+                  <div className='grid grid-cols-2 gap-x-4 lg:grid-cols-4'>
                     {
                       (producto_info.data[0] && producto_info.data[0].StrParam3) &&
                       (
-                        <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
+                        <div className='mt-2 bg-gray-200 rounded-xl w-full min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
                           <p className='font-bold'>Dimension</p>
                           <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].StrParam3}`}</p>
                         </div>
@@ -327,7 +329,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                     {
                       (producto_info.data[0] && producto_info.data[0].material) &&
                       (
-                        <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
+                        <div className='mt-2 bg-gray-200 rounded-xl w-full min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
                           <p className='font-bold'>Material</p>
                           <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].material}`}</p>
                         </div>
@@ -338,28 +340,38 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                       (producto_info.data[0] && producto_info.data[0].Strauxiliar && producto_info.data[0].Strauxiliar !== "0" && producto_info.data[0].Strauxiliar !== "1") &&
                       (
                         <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
-                          <p className='font-bold'>Cantidad por Emapaque:</p>
+                          <p className='font-bold'>Cantidad por Empaque:</p>
                           <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].Strauxiliar}`}</p>
+                        </div>
+                      )
+                    }
+
+                    {
+                      (producto_info.data[0] && producto_info.data[0].CantPaca && producto_info.data[0].CantPaca !== "0" && producto_info.data[0].CantPaca !== "1") &&
+                      (
+                        <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
+                          <p className='font-bold'>Cantidad por Paca:</p>
+                          <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].CantPaca}`}</p>
                         </div>
                       )
                     }
                   </div>
 
 
-                  <p className='font-normal text-gray-600 text-normal my-4'>{producto_info.data[0] ? producto_info.data[0].StrDescripcionCorta : ""}</p>
+                  <p className='my-4 font-normal text-gray-600 text-normal'>{producto_info.data[0] ? producto_info.data[0].StrDescripcionCorta : ""}</p>
                   <textarea
-                    className='w-full h-40 outline-none border-2 border-gray-500 resize-none rounded-xl p-4'
+                    className='w-full h-40 p-4 border-2 border-gray-500 outline-none resize-none rounded-xl'
                     placeholder='Observacion, Por favor digitar en este espacio el estilo y color deseado.'
                     value={observacion}
                     onChange={(e) => { setobservacion(e.target.value) }}
                   />
-                  <div className='flex gap-y-2 flex-col'>
+                  <div className='flex flex-col gap-y-2'>
                     <span className='text-sm font-normal text-gray-700'>Cantidad:</span>
                     <div>
-                      <div className='border-2 border-gray-200 w-max flex rounded mt-2 items-center'>
-                        <button onClick={() => { cambiar_cantidades(2) }} className='bg-gray-100 h-full left-0 w-auto px-4 flex justify-center items-center cursor-pointer rounded-l py-2 border-r-2 border-r-gray-200'><IoMdRemove size={21} /></button>
+                      <div className='flex items-center mt-2 border-2 border-gray-200 rounded w-max'>
+                        <button onClick={() => { cambiar_cantidades(2) }} className='left-0 flex items-center justify-center w-auto h-full px-4 py-2 bg-gray-100 border-r-2 rounded-l cursor-pointer border-r-gray-200'><IoMdRemove size={21} /></button>
                         <input
-                          className='outline-none px-4 text-center w-16 appearance-none resize-none'
+                          className='w-16 px-4 text-center outline-none appearance-none resize-none'
                           type='number'
                           ref={inputCantidadRef}
                           min={1}
@@ -369,16 +381,16 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                           }}
 
                         />
-                        <button onClick={() => { cambiar_cantidades(1) }} className='bg-gray-100 h-full left-0 w-auto px-4 flex justify-center items-center cursor-pointer rounded-r py-2 border-l-2 border-l-gray-200'><IoIosAdd size={21} /></button>
+                        <button onClick={() => { cambiar_cantidades(1) }} className='left-0 flex items-center justify-center w-auto h-full px-4 py-2 bg-gray-100 border-l-2 rounded-r cursor-pointer border-l-gray-200'><IoIosAdd size={21} /></button>
                       </div>
-                      <p className='font-normal text-gray-600 text-sm my-2'>Subtotal : ${FormateoNumberInt((subTotal).toString())}</p>
+                      <p className='my-2 text-sm font-normal text-gray-600'>Subtotal : ${FormateoNumberInt((subTotal).toString())}</p>
                     </div>
 
                   </div>
                 </div>
 
                 <button
-                  className='block text-center xl:w-4/5 bg-blue-500 text-white py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all border-2 border-blue-500 font-medium my-4'
+                  className='block py-2 my-4 font-medium text-center text-white transition-all bg-blue-500 border-2 border-blue-500 xl:w-4/5 rounded-2xl hover:bg-white hover:text-blue-500'
                   onClick={agregar_carrito}
                 >
                   {productoExistente ? "Actualizar Producto" : "Agregar al carrito"}
