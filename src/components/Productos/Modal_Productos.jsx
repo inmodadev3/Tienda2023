@@ -341,13 +341,13 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                       (
                         <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
                           <p className='font-bold'>Cantidad por Empaque:</p>
-                          <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].Strauxiliar}`}</p>
+                          <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].Strauxiliar}`}aaaa</p>
                         </div>
                       )
                     }
 
                     {
-                      (producto_info.data[0] && producto_info.data[0].CantPaca && producto_info.data[0].CantPaca !== "0" && producto_info.data[0].CantPaca !== "1") &&
+                      (producto_info.data[0] && producto_info.data[0].CantPaca !== 0 && producto_info.data[0].CantPaca !== 1) &&
                       (
                         <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
                           <p className='font-bold'>Cantidad por Paca:</p>
