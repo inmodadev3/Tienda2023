@@ -4,6 +4,7 @@ import { UsuarioContext } from '../../routes/Routers'
 import { useLocation } from 'react-router-dom'
 import { default_price } from '../../routes/QueryParams'
 import './styles.css'
+import { soldOut } from '../../utilities/Imagenes'
 
 export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_Modal }) => {
 
@@ -68,6 +69,9 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 loading='lazy'
                 className='object-contain w-full rounded-t-lg cursor-pointer h-72 '
                 alt={`${producto.StrDescripcion}`}
+                onError={(e)=>{
+                    e.target.src = soldOut
+                  }}
             />
             <div className='px-2 mt-8'>
                 <p className='font-medium truncate w-52 lg:w-40'>{producto.StrDescripcion ? producto.StrDescripcion : "Undefined"}</p>

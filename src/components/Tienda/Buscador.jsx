@@ -8,6 +8,7 @@ import { default_price, texto_buscar } from '../../routes/QueryParams'
 import RUTAS from '../../routes/PATHS'
 import { IoMdClose } from 'react-icons/io'
 import { BiSearch } from 'react-icons/bi'
+import { soldOut } from '../../utilities/Imagenes'
 
 
 export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
@@ -187,7 +188,10 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                 <img
                                                     src={ConsultarImagenes(item.StrArchivo)}
                                                     className='w-16 h-16 rounded-full -2'
-                                                    alt='Imagen de producto'
+                                                    alt={`${item.StrDescripcion}`}
+                                                    onError={(e) => {
+                                                        e.target.src = soldOut
+                                                    }}
                                                 />
                                                 <div className='flex-1 py-1 space-y-2'>
                                                     <p className='text-sm font-medium truncate w-52'>{item.StrDescripcion ? item.StrDescripcion : ""}</p>
@@ -326,7 +330,10 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                                 <img
                                                                     src={ConsultarImagenes(item.StrArchivo)}
                                                                     className='w-16 h-16'
-                                                                    alt='Imagen de producto'
+                                                                    alt={`${item.StrDescripcion}`}
+                                                                    onError={(e) => {
+                                                                        e.target.src = soldOut
+                                                                    }}
                                                                 />
                                                                 <div className='flex-1 py-1 space-y-2'>
                                                                     <p className='text-sm font-medium truncate w-52'>{item.StrDescripcion ? item.StrDescripcion : ""}</p>

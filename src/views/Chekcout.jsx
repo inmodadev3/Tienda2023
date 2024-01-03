@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { BiArrowBack } from 'react-icons/bi';
 import { LoaderComponent } from '../components/Loader/LoaderComponent';
 import { SendLottie } from '../components/Lotties/LottiesCompoent/SendLottie';
+import { soldOut } from '../utilities/Imagenes';
 
 
 export const Chekcout = () => {
@@ -171,18 +172,18 @@ export const Chekcout = () => {
                 setisEnviandoPedido(true)
                 if (precio_default) {
                     try {
-                        const response = await Axios.post(`/pedidos/enviar_local`,{
-                            dataCliente:{
-                                cedula:cedula,
-                                nombre:`${nombre} ${apellido}`,
-                                ciudad:ciudad,
-                                valorTotal:calcularTotal(),
+                        const response = await Axios.post(`/pedidos/enviar_local`, {
+                            dataCliente: {
+                                cedula: cedula,
+                                nombre: `${nombre} ${apellido}`,
+                                ciudad: ciudad,
+                                valorTotal: calcularTotal(),
                                 fechaEnvio: new Date(),
-                                obrservacion:observacion,
-                                telefono:telefono,
+                                obrservacion: observacion,
+                                telefono: telefono,
                             },
-                            seller:querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
-                            arrProductos:carrito
+                            seller: querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
+                            arrProductos: carrito
                         })
                         setpedidoIdDB(response.data.data.lastId)
                         toast.success("Pedido enviado correctamente")
@@ -197,7 +198,7 @@ export const Chekcout = () => {
                         try {
                             const response = await Axios.post(`/pedidos/enviar/${usuario.StrIdTercero}`, {
                                 strObservacion: observacion,
-                                seller:querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
+                                seller: querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
                             })
                             setpedidoIdDB(response.data.data.lastId)
                             settotalDB(response.data.data.total)
@@ -208,7 +209,7 @@ export const Chekcout = () => {
                             toast.error(`${error.response.data.message}`)
 
                         }
-                    }else{
+                    } else {
                         toast.info("No existe ningun usuario")
                     }
                 }
@@ -222,7 +223,7 @@ export const Chekcout = () => {
 
     }
 
-    
+
     const aplicar_novedades = async () => {
         try {
             let arrCarrito = [...carrito]
@@ -271,7 +272,7 @@ export const Chekcout = () => {
         }
     }
 
-    const isMobile = () =>{
+    const isMobile = () => {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
@@ -424,7 +425,7 @@ export const Chekcout = () => {
                             <button
                                 className='flex items-center justify-center w-1/2 py-2 text-lg text-white bg-green-600 rounded-lg gap-x-2 xl:gap-x-12'
                                 onClick={validar_inputs}
-                                disabled={(carrito && carrito.length > 0) ? false:true}
+                                disabled={(carrito && carrito.length > 0) ? false : true}
                             >
                                 <span><AiOutlineWhatsApp size={20} /></span>
                                 <span>Enviar pedido</span>
@@ -447,7 +448,11 @@ export const Chekcout = () => {
                                                     <div className='w-20 h-20 lg:w-16 lg:h-16'>
                                                         <img
                                                             src={ConsultarImagenes(item.imagen)}
+                                                            alt={`producto ${item.imagen}`}
                                                             className='object-cover w-full h-full border-2 border-gray-300 rounded'
+                                                            onError={(e) => {
+                                                                e.target.src = soldOut
+                                                            }}
                                                         />
                                                     </div>
 
@@ -500,6 +505,10 @@ export const Chekcout = () => {
                                             <div className='flex items-center justify-center w-20 h-20'>
                                                 <img
                                                     src={ConsultarImagenes(agotado.imagen)}
+                                                    alt={`${agotado.descripcion}`}
+                                                    onError={(e) => {
+                                                        e.target.src = soldOut
+                                                    }}
                                                 />
                                             </div>
                                             <div>
@@ -516,6 +525,10 @@ export const Chekcout = () => {
                                             <div className='flex items-center justify-center w-20 h-20'>
                                                 <img
                                                     src={ConsultarImagenes(cambio.imagen)}
+                                                    alt={`${cambio.descripcion}`}
+                                                    onError={(e) => {
+                                                        e.target.src = soldOut
+                                                    }}
                                                 />
                                             </div>
                                             <div>

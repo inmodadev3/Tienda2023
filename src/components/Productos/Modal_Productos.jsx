@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { default_price, vendedor } from '../../routes/QueryParams'
 import { useLocation, useNavigate } from 'react-router-dom'
 import RUTAS from '../../routes/PATHS'
+import { soldOut } from '../../utilities/Imagenes'
 
 export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcarritoTotalProductos }) => {
 
@@ -279,8 +280,11 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                 <div>
                   <img
                     src={`${(producto_info && imagen_principal !== "") ? ConsultarImagenes(imagen_principal) : ``}`}
-                    alt={`Imagen de ${producto_info.data[0].StrDescripcion}`}
+                    alt={`${producto_info.data[0].StrDescripcion}`}
                     className={`w-80 h-80 fade-in ${resetAnimation ? 'reset-animation' : ''}`}
+                    onError={(e)=>{
+                      e.target.src = soldOut
+                    }}
                   />
                 </div>
                 <div className={`flex gap-x-1 w-full Scroll-invisible px-8 ${producto_info.images.length > 4 && "overflow-x-scroll"} `}>
@@ -289,9 +293,12 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                       <img
                         key={index}
                         src={ConsultarImagenes(imagen.strArchivo)}
-                        alt={`Imagen de producto ${producto_info.data[0].StrDescripcion} con referencia ${producto_info.data[0].StrIdProducto}`}
+                        alt={` ${producto_info.data[0].StrDescripcion} con referencia ${producto_info.data[0].StrIdProducto}`}
                         className='w-24 h-24 border-2 rounded cursor-pointer'
                         onClick={() => { handleImagenPrincipalChange(imagen.strArchivo) }}
+                        onError={(e)=>{
+                          e.target.src = soldOut
+                        }}
                       />
                     ))
                   }
