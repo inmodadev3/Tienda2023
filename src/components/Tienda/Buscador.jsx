@@ -73,7 +73,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                 }
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
 
         }
     }
@@ -94,7 +94,6 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
     }
 
     const modal_producto = (producto) => {
-        console.log(producto)
         let precio_producto = listas_Precios(parseInt(precio), producto)
 
         setproducto_Modal({
@@ -105,13 +104,13 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
     }
 
     return (
-        <div className=' z-auto'>
+        <div className='z-auto '>
             <div className='absolute top-4 left-32'>
                 <div className={` hidden lg:flex bg-white items-center px-3 py-2 rounded-lg border-2 border-blue-600 w-80 justify-between`}>
                     <input
                         type='text'
                         placeholder='¿Qué deseas buscar?'
-                        className='bg-transparent outline-none w-full'
+                        className='w-full bg-transparent outline-none'
                         onChange={(e) => { settexto(e.target.value) }}
                         value={texto}
                         onKeyUp={(e) => {
@@ -127,8 +126,8 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                 </div>
             </div>
 
-            <div className='absolute top-4 left-4 flex lg:hidden'>
-                <button onClick={() => { setviewMobileSearch(true) }} className='bg-gray-200 p-2 rounded-full' aria-label="Abrir el buscador en versión móvil">
+            <div className='absolute flex top-4 left-4 lg:hidden'>
+                <button onClick={() => { setviewMobileSearch(true) }} className='p-2 bg-gray-200 rounded-full' aria-label="Abrir el buscador en versión móvil">
                     <span><AiOutlineSearch size={25} /></span>
                 </button>
             </div>
@@ -138,7 +137,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                 !viewMobileSearch ? (
 
                     texto.length > 0 && (
-                        <div className='min-w-80 min-h-12 bg-gray-50 absolute top-16 left-32 rounded-lg overflow-y-scroll max-h-80 Scroll-invisible pb-4'>
+                        <div className='absolute pb-4 overflow-y-scroll rounded-lg min-w-80 min-h-12 bg-gray-50 top-16 left-32 max-h-80 Scroll-invisible'>
                             {
                                 texto.length < 3 && (
                                     <div className='p-3'>
@@ -148,26 +147,26 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                             }
                             {
                                 (isLoadingData && texto.length > 2) && (
-                                    <div className=" rounded-md p-4 w-80 mx-auto space-y-4">
-                                        <div className="animate-pulse flex space-x-4">
-                                            <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                            <div className="flex-1 space-y-2 py-1">
+                                    <div className="p-4 mx-auto space-y-4 rounded-md w-80">
+                                        <div className="flex space-x-4 animate-pulse">
+                                            <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                            <div className="flex-1 py-1 space-y-2">
                                                 <div className="h-2 bg-gray-400 rounded"></div>
-                                                <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                             </div>
                                         </div>
-                                        <div className="animate-pulse flex space-x-4">
-                                            <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                            <div className="flex-1 space-y-2 py-1">
+                                        <div className="flex space-x-4 animate-pulse">
+                                            <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                            <div className="flex-1 py-1 space-y-2">
                                                 <div className="h-2 bg-gray-400 rounded"></div>
-                                                <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                             </div>
                                         </div>
-                                        <div className="animate-pulse flex space-x-4">
-                                            <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                            <div className="flex-1 space-y-2 py-1">
+                                        <div className="flex space-x-4 animate-pulse">
+                                            <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                            <div className="flex-1 py-1 space-y-2">
                                                 <div className="h-2 bg-gray-400 rounded"></div>
-                                                <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +179,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                         Data.map((item, index) => (
                                             <div
                                                 key={index}
-                                                className='flex space-x-4 py-2 w-80 border-b border-gray-400 cursor-pointer hover:bg-gray-200 px-4 object-cover'
+                                                className='flex object-cover px-4 py-2 space-x-4 border-b border-gray-400 cursor-pointer w-80 hover:bg-gray-200'
                                                 onClick={() => {
                                                     modal_producto(item)
                                                 }}
@@ -190,14 +189,14 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                     className='w-16 h-16 rounded-full -2'
                                                     alt='Imagen de producto'
                                                 />
-                                                <div className='flex-1 space-y-2 py-1'>
-                                                    <p className='w-52 truncate font-medium text-sm'>{item.StrDescripcion ? item.StrDescripcion : ""}</p>
-                                                    <p className='w-52 font-medium text-xs text-blue-800'>{item.StrIdProducto ? item.StrIdProducto : ""}</p>
+                                                <div className='flex-1 py-1 space-y-2'>
+                                                    <p className='text-sm font-medium truncate w-52'>{item.StrDescripcion ? item.StrDescripcion : ""}</p>
+                                                    <p className='text-xs font-medium text-blue-800 w-52'>{item.StrIdProducto ? item.StrIdProducto : ""}</p>
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
-                                        <div className='p-3 w-80 z-50'>
+                                        <div className='z-50 p-3 w-80'>
                                             <p className='text-sm font-medium'>Sin resultados...</p>
                                         </div>
                                     )
@@ -207,7 +206,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                 (Data !== null && Data.length == 30) &&
                                 (
                                     Data.length > 0 && (
-                                        <button className='flex justify-center items-center w-full my-4 hover:text-blue-500 transition-all'
+                                        <button className='flex items-center justify-center w-full my-4 transition-all hover:text-blue-500'
                                             onClick={() => {
                                                 navigate(`${RUTAS.BUSCAR}?${parametro_sin_busqueda}&q=${texto}`)
                                                 if (url.pathname === RUTAS.BUSCAR) {
@@ -216,7 +215,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                             }}
 
                                         >
-                                            <p className='underline z-50'>Ver todos los resultados</p>
+                                            <p className='z-50 underline'>Ver todos los resultados</p>
                                         </button>
                                     )
                                 )
@@ -226,22 +225,22 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
 
                 ) : (
                     viewMobileSearch && (
-                        <div className='fixed w-screen min-h-screen bg-white top-0 left-0 z-30 md:px-12 px-1 py-24'>
+                        <div className='fixed top-0 left-0 z-30 w-screen min-h-screen px-1 py-24 bg-white md:px-12'>
                             <div className='flex justify-between my-8'>
-                                <h3 className='text-lg text-blue-800 font-medium'>Buscador</h3>
+                                <h3 className='text-lg font-medium text-blue-800'>Buscador</h3>
                                 <p onClick={() => {
                                     setviewMobileSearch(false)
                                     settexto('')
-                                }} className='flex items-center gap-x-4 cursor-pointer'>
+                                }} className='flex items-center cursor-pointer gap-x-4'>
                                     <span>Cerrar</span>
                                     <span><IoMdClose size={20} /></span>
                                 </p>
                             </div>
-                            <div className='flex justify-between border border-gray-400 rounded-xl p-4'>
+                            <div className='flex justify-between p-4 border border-gray-400 rounded-xl'>
                                 <input
                                     type='text'
                                     placeholder='¿Qué deseas buscar?'
-                                    className='bg-transparent outline-none w-full'
+                                    className='w-full bg-transparent outline-none'
                                     onChange={(e) => { settexto(e.target.value) }}
                                     value={texto}
                                     onKeyUp={(e) => {
@@ -269,47 +268,47 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                         }
                                         {
                                             isLoadingData && (
-                                                <div className=" rounded-md p-4 w-full space-y-4">
-                                                    <div className="animate-pulse flex space-x-4">
-                                                        <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                                        <div className="flex-1 space-y-2 py-1">
+                                                <div className="w-full p-4 space-y-4 rounded-md ">
+                                                    <div className="flex space-x-4 animate-pulse">
+                                                        <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                                        <div className="flex-1 py-1 space-y-2">
                                                             <div className="h-2 bg-gray-400 rounded"></div>
-                                                            <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                            <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                                         </div>
                                                     </div>
-                                                    <div className="animate-pulse flex space-x-4">
-                                                        <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                                        <div className="flex-1 space-y-2 py-1">
+                                                    <div className="flex space-x-4 animate-pulse">
+                                                        <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                                        <div className="flex-1 py-1 space-y-2">
                                                             <div className="h-2 bg-gray-400 rounded"></div>
-                                                            <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                            <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                                         </div>
                                                     </div>
-                                                    <div className="animate-pulse flex space-x-4">
-                                                        <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                                        <div className="flex-1 space-y-2 py-1">
+                                                    <div className="flex space-x-4 animate-pulse">
+                                                        <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                                        <div className="flex-1 py-1 space-y-2">
                                                             <div className="h-2 bg-gray-400 rounded"></div>
-                                                            <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                            <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                                         </div>
                                                     </div>
-                                                    <div className="animate-pulse flex space-x-4">
-                                                        <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                                        <div className="flex-1 space-y-2 py-1">
+                                                    <div className="flex space-x-4 animate-pulse">
+                                                        <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                                        <div className="flex-1 py-1 space-y-2">
                                                             <div className="h-2 bg-gray-400 rounded"></div>
-                                                            <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                            <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                                         </div>
                                                     </div>
-                                                    <div className="animate-pulse flex space-x-4">
-                                                        <div className="rounded bg-gray-400 h-10 w-10"></div>
-                                                        <div className="flex-1 space-y-2 py-1">
+                                                    <div className="flex space-x-4 animate-pulse">
+                                                        <div className="w-10 h-10 bg-gray-400 rounded"></div>
+                                                        <div className="flex-1 py-1 space-y-2">
                                                             <div className="h-2 bg-gray-400 rounded"></div>
-                                                            <div className="h-2 bg-gray-400 rounded w-24"></div>
+                                                            <div className="w-24 h-2 bg-gray-400 rounded"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         }
 
-                                        <div className=' h-96 overflow-y-scroll overflow-x-hidden'>
+                                        <div className='overflow-x-hidden overflow-y-scroll h-96'>
                                             {
                                                 Data !== null &&
                                                 (
@@ -317,7 +316,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                         Data.map((item, index) => (
                                                             <div
                                                                 key={index}
-                                                                className='flex space-x-4 py-2 w-full border-b border-gray-400 cursor-pointer hover:bg-gray-300 px-4'
+                                                                className='flex w-full px-4 py-2 space-x-4 border-b border-gray-400 cursor-pointer hover:bg-gray-300'
                                                                 onClick={() => {
                                                                     modal_producto(item)
                                                                     setviewMobileSearch(false)
@@ -329,14 +328,14 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                                     className='w-16 h-16'
                                                                     alt='Imagen de producto'
                                                                 />
-                                                                <div className='flex-1 space-y-2 py-1'>
-                                                                    <p className='w-52 truncate font-medium text-sm'>{item.StrDescripcion ? item.StrDescripcion : ""}</p>
-                                                                    <p className='w-52 font-medium text-xs text-blue-800'>{item.StrIdProducto ? item.StrIdProducto : ""}</p>
+                                                                <div className='flex-1 py-1 space-y-2'>
+                                                                    <p className='text-sm font-medium truncate w-52'>{item.StrDescripcion ? item.StrDescripcion : ""}</p>
+                                                                    <p className='text-xs font-medium text-blue-800 w-52'>{item.StrIdProducto ? item.StrIdProducto : ""}</p>
                                                                 </div>
                                                             </div>
                                                         ))
                                                     ) : (
-                                                        <div className='p-3 w-80 z-50'>
+                                                        <div className='z-50 p-3 w-80'>
                                                             <p className='text-sm font-medium'>Sin resultados...</p>
                                                         </div>
                                                     )
@@ -346,7 +345,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                 (Data !== null && Data.length == 30) &&
                                                 (
                                                     Data.length > 0 && (
-                                                        <button className='flex justify-center items-center w-full my-4 hover:text-blue-500 transition-all'
+                                                        <button className='flex items-center justify-center w-full my-4 transition-all hover:text-blue-500'
                                                             onClick={() => {
                                                                 navigate(`${RUTAS.BUSCAR}?${parametro_sin_busqueda}&q=${texto}`)
                                                                 if (url.pathname === RUTAS.BUSCAR) {
@@ -355,7 +354,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                                                             }}
 
                                                         >
-                                                            <p className='underline z-50'>Ver todos los resultados</p>
+                                                            <p className='z-50 underline'>Ver todos los resultados</p>
                                                         </button>
                                                     )
                                                 )

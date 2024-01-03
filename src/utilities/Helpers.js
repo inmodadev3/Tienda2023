@@ -7,5 +7,5 @@ export const FormateoNumberInt = (num) => {
 }
 
 export const ConsultarImagenes = (ruta_imagen) =>{
-    return `https://panel.inmodafantasy.com.co/owncloud${ruta_imagen}`
+    return `https://panel.inmodafantasy.com.co:8083/imagenes/owncloud${ruta_imagen}`
 }

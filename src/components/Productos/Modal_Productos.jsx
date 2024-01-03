@@ -86,10 +86,9 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
 
       } else {
         console.error("Ha ocurrido un error en el modal de producto")
-        console.log(producto)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -268,8 +267,6 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
     }
   }
 
-
-  console.log(producto_info)
 
   return (
     <div className='fixed top-0 left-0 z-20 flex items-center justify-center w-screen h-screen'>

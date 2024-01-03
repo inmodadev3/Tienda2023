@@ -127,7 +127,6 @@ export const Carrito = () => {
     const consultar_productos_database = async () => {
         try {
             const response = await Axios.get(`pedidos/productos/${usuario.StrIdTercero}`)
-            console.log(response)
             setproductos(response.data.data)
             setcarritoTotalProductos(response.data.data ? response.data.data.length : 0)
         } catch (error) {
@@ -139,12 +138,12 @@ export const Carrito = () => {
 
     return (
         <div className='min-h-screen bg-gray-100'>
-            <section className='h-24 flex items-center'>
+            <section className='flex items-center h-24'>
                 <article className='mx-4 md:mx-32'>
                     <h1 className='text-3xl font-bold text-blue-500'>CARRITO DE COMPRAS</h1>
                 </article>
             </section>
-            <div className='flex gap-x-10 flex-col xl:flex-row'>
+            <div className='flex flex-col gap-x-10 xl:flex-row'>
                 <section className='md:mx-12 xl:ml-32 xl:w-11/12 h-[600px] overflow-y-scroll Scroll-invisible'>
                     {
                         !isLoadingProductos ?
@@ -158,26 +157,26 @@ export const Carrito = () => {
                                 />
                             ) :
                             (
-                                <span className='font-medium text-3xl flex justify-center items-center text-center my-12 '>Cargando...</span>
+                                <span className='flex items-center justify-center my-12 text-3xl font-medium text-center '>Cargando...</span>
                             )
                     }
                 </section>
                 <section className='flex justify-center mt-2 mb-12 xl:w-2/5'>
-                    <div className='w-2/3 h-full  '>
-                        <article className='border-b-2 border-gray-500 py-2'>
+                    <div className='w-2/3 h-full '>
+                        <article className='py-2 border-b-2 border-gray-500'>
                             <span className='font-medium'>Resumen del pedido</span>
                         </article>
                         <br />
                         <hr className='border-b-2 border-b-gray-200 ' />
                         <br />
                         <hr className='border-b-2 border-b-gray-200 ' />
-                        <article className='mt-12 flex justify-between py-2 px-2'>
+                        <article className='flex justify-between px-2 py-2 mt-12'>
                             <p className='font-bold text-gray-800'>Cantidad de productos:</p>
                             <p className='text-lg font-medium'>{productos.length}</p>
                         </article>
                         <p className='text-[14px] font-medium text-slate-500 text-center'>El total se encuentra con el iva incluido*</p>
 
-                        <article className='mt-4 flex justify-between py-2 border-b-2 border-b-gray-500 px-2'>
+                        <article className='flex justify-between px-2 py-2 mt-4 border-b-2 border-b-gray-500'>
                             <p className='font-bold text-gray-800'>Total:</p>
                             <p className='text-lg font-medium'>${FormateoNumberInt(calcularTotal())}</p>
                         </article>
@@ -185,7 +184,7 @@ export const Carrito = () => {
                         {
                             productos.length > 0 && (
                                 <button
-                                    className='mt-8 flex w-full text-center bg-green-700 border-2 border-green-700 items-center justify-center py-2 rounded-xl text-white font-medium hover:bg-white hover:text-green-700 transition-all'
+                                    className='flex items-center justify-center w-full py-2 mt-8 font-medium text-center text-white transition-all bg-green-700 border-2 border-green-700 rounded-xl hover:bg-white hover:text-green-700'
                                     onClick={() => { navigate(`${RUTAS.CHEKOUT}?${querySearchParams}`) }}
                                 >
                                     Ir a finalización del pedido
@@ -194,7 +193,7 @@ export const Carrito = () => {
                         }
 
                         <button
-                            className='mt-8 flex w-full text-center bg-blue-950 border-2 border-blue-950 items-center justify-center py-2 rounded-xl text-white font-medium hover:bg-white hover:text-blue-950 transition-all'
+                            className='flex items-center justify-center w-full py-2 mt-8 font-medium text-center text-white transition-all border-2 bg-blue-950 border-blue-950 rounded-xl hover:bg-white hover:text-blue-950'
                             onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }}
                         >
                             Seguir comprando
@@ -203,7 +202,7 @@ export const Carrito = () => {
                         {
                             productos.length > 0 && (
                                 <button
-                                    className='mt-8 flex w-full text-center bg-red-500 border-2 border-red-500 items-center justify-center py-2 rounded-xl text-white font-medium hover:bg-white hover:text-red-500 transition-all'
+                                    className='flex items-center justify-center w-full py-2 mt-8 font-medium text-center text-white transition-all bg-red-500 border-2 border-red-500 rounded-xl hover:bg-white hover:text-red-500'
                                     onClick={() => {
                                         setvisibleModalBorrarCarrito(true)
                                     }}

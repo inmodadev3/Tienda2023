@@ -110,7 +110,7 @@ export const Tienda = () => {
                 settotal_Paginas(paginas.data.Paginas)
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
@@ -139,7 +139,7 @@ export const Tienda = () => {
             }
 
         } catch (error) {
-            console.log(error)
+            console.error(error)
             alert(import.meta.env.VITE_API_URL_HOST)
             toast.error(` Ha ocurrido un error al consultar los productos`, {
                 closeOnClick: true,
@@ -242,24 +242,24 @@ export const Tienda = () => {
 
 
     return (
-        <div className='bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen overflow-x-hidden overflow-y-hidden'>
+        <div className='min-h-screen overflow-x-hidden overflow-y-hidden bg-gradient-to-b from-gray-50 to-gray-200'>
             {/* ENCABEZADO TIENDA */}
             <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} />
 
             {/*FILTROS  */}
-            <section className='block md:flex justify-between px-4 md:mx-24 mt-24'>
+            <section className='justify-between block px-4 mt-24 md:flex md:mx-24'>
                 <div className='' ref={titulo_tiendaRef}></div>
                 <div className='flex flex-col w-full xs:w-1/2 md:w-auto'>
                     <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-blue-700 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all`}>
-                        <p className='text-center w-full font-bold tracking-widest'>Categorias</p>
+                        <p className='w-full font-bold tracking-widest text-center'>Categorias</p>
                     </div>
                 </div>
             </section>
 
 
             {/* CUERPO DE LA TIENDA */}
-            <div className='mt-12 relative mx-4 xl:mx-24 mb-20 flex justify-between'>
-                <div className='xl:w-3/12 relative'></div>
+            <div className='relative flex justify-between mx-4 mt-12 mb-20 xl:mx-24'>
+                <div className='relative xl:w-3/12'></div>
 
                 {/* SECCION DE CATEGORIAS */}
                 <Categorias
@@ -301,17 +301,17 @@ export const Tienda = () => {
             </div>
 
 
-            {isViewModalCategoriasMobile && (<div onClick={() => { setisViewModalCategoriasMobile(false) }} className='fixed top-0 left-0 w-screen min-h-screen bg-gray-500/40 z-10'></div>)}
+            {isViewModalCategoriasMobile && (<div onClick={() => { setisViewModalCategoriasMobile(false) }} className='fixed top-0 left-0 z-10 w-screen min-h-screen bg-gray-500/40'></div>)}
             {/* BOTON PARA REGRESAR AL HEADER */}
-            <div onClick={FocusTienda} className='fixed bottom-6 right-2 bg-blue-500 rounded-full p-2 cursor-pointer text-white transition-all hover:bg-blue-700'>
+            <div onClick={FocusTienda} className='fixed p-2 text-white transition-all bg-blue-500 rounded-full cursor-pointer bottom-6 right-2 hover:bg-blue-700'>
                 <span><AiOutlineArrowUp size={32} /></span>
             </div>
 
 
-            <div onClick={() => { navigate(`${RUTAS.CARRITO}?${querySearchParams}`) }} className='fixed bottom-20 right-2 bg-green-500 rounded-full  cursor-pointer text-white transition-all w-12 h-12 flex items-center justify-center hover:bg-green-700'>
-                <div className='w-full h-full flex items-center justify-center relative'>
+            <div onClick={() => { navigate(`${RUTAS.CARRITO}?${querySearchParams}`) }} className='fixed flex items-center justify-center w-12 h-12 text-white transition-all bg-green-500 rounded-full cursor-pointer bottom-20 right-2 hover:bg-green-700'>
+                <div className='relative flex items-center justify-center w-full h-full'>
                     <span className=''><AiOutlineShoppingCart size={25} /></span>
-                    <span className='absolute -top-3 -right-1 bg-orange-500 w-6 h-6 rounded-full text-center'>{carritoTotalProductos}</span>
+                    <span className='absolute w-6 h-6 text-center bg-orange-500 rounded-full -top-3 -right-1'>{carritoTotalProductos}</span>
                 </div>
             </div>
 

@@ -160,12 +160,10 @@ export const Chekcout = () => {
 
             if (response.data.agotados.length > 0) {
                 setagotados(response.data.agotados)
-                console.log('existe al menos un elemento agotado')
             }
 
             if (response.data.cambios_precio.length > 0) {
                 setcambios_precio(response.data.cambios_precio)
-                console.log('existe al menos un elemento con precio diferente')
             }
 
             if (response.data.cambios_precio.length == 0 && response.data.agotados.length == 0) {
@@ -201,7 +199,6 @@ export const Chekcout = () => {
                                 strObservacion: observacion,
                                 seller:querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
                             })
-                            console.log(response.data)
                             setpedidoIdDB(response.data.data.lastId)
                             settotalDB(response.data.data.total)
                             toast.success("Pedido enviado correctamente")
@@ -218,7 +215,7 @@ export const Chekcout = () => {
             }
 
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setisEnviandoPedido(false)
         }
@@ -278,7 +275,6 @@ export const Chekcout = () => {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
-    console.log()
 
     const Enviar_Confirmacion_Whatsapp = async () => {
         try {
@@ -291,8 +287,6 @@ export const Chekcout = () => {
             let telefono = (response.data.data) || '315 6353687'
             telefono = telefono.replace(" ", "")
 
-            console.log(pedido,totalDB)
-
             window.open(`https://${isMobile() ? "api" : "web"}.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(`🖐🏻 Hola.\n🛍️ Acabo de realizar un pedido desde la tienda en linea por un valor de $ ${total}.\n💰🏦 Regálame los datos de consignación y el valor del envío 🛵 para continuar con la compra.\n📄Este es mi pedido https://panel.inmodafantasy.com.co/#/pedidos/pdf/${pedido}`)}`).focus()
             navigate(`${RUTAS.TIENDA}?${querySearchParams}`)
         } catch (error) {
@@ -302,18 +296,18 @@ export const Chekcout = () => {
 
     return (
         <div className='w-full min-h-screen'>
-            <div className='flex flex-col xl:justify-center gap-x-12 h-screen lg:flex-row'>
+            <div className='flex flex-col h-screen xl:justify-center gap-x-12 lg:flex-row'>
                 <section className='w-full xl:h-full '>
-                    <div className=' px-2 xl:my-24 xl:px-12'>
+                    <div className='px-2 xl:my-24 xl:px-12'>
                         <div className='mt-4'>
                             <p className='text-2xl font-semibold'>Datos de envio</p>
                             <section className='flex flex-col gap-x-6 xl:flex-row'>
-                                <div className='mt-2 xl:w-1/2 flex flex-col border-2 p-3'>
+                                <div className='flex flex-col p-3 mt-2 border-2 xl:w-1/2'>
                                     <span className='hidden'>Nombre</span>
                                     <input
                                         type="text"
                                         placeholder='Nombre'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={nombre}
                                         disabled={!precio_default ? (usuario && true) : false}
                                         onChange={(e) => {
@@ -322,12 +316,12 @@ export const Chekcout = () => {
                                     />
                                 </div>
 
-                                <div className='mt-2 xl:w-1/2 flex flex-col border-2 p-3'>
+                                <div className='flex flex-col p-3 mt-2 border-2 xl:w-1/2'>
                                     <span className='hidden'>Apellidos</span>
                                     <input
                                         type="text"
                                         placeholder='Apellidos'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={apellido}
                                         disabled={!precio_default ? (usuario && true) : false}
                                         onChange={(e) => {
@@ -337,12 +331,12 @@ export const Chekcout = () => {
                                 </div>
                             </section>
                             <section>
-                                <div className='mt-2 w-full flex flex-col border-2 p-3'>
+                                <div className='flex flex-col w-full p-3 mt-2 border-2'>
                                     <span className='hidden'>Cédula</span>
                                     <input
                                         type="number"
                                         placeholder='Cédula'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={cedula}
                                         disabled={!precio_default ? (usuario && true) : false}
                                         onChange={(e) => {
@@ -353,12 +347,12 @@ export const Chekcout = () => {
                             </section>
 
                             <section>
-                                <div className='mt-2 w-full flex flex-col border-2 p-3'>
+                                <div className='flex flex-col w-full p-3 mt-2 border-2'>
                                     <span className='hidden'>Dirección</span>
                                     <input
                                         type="text"
                                         placeholder='Dirección'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={direccion}
                                         onChange={(e) => {
                                             setdireccion(e.target.value)
@@ -368,12 +362,12 @@ export const Chekcout = () => {
                             </section>
 
                             <section className='flex flex-col gap-x-6 xl:flex-row'>
-                                <div className='mt-2 xl:w-1/2 flex flex-col border-2 p-3'>
+                                <div className='flex flex-col p-3 mt-2 border-2 xl:w-1/2'>
                                     <span className='hidden'>Ciudad</span>
                                     <input
                                         type="text"
                                         placeholder='Ciudad'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={ciudad}
                                         onChange={(e) => {
                                             setciudad(e.target.value)
@@ -381,12 +375,12 @@ export const Chekcout = () => {
                                     />
                                 </div>
 
-                                <div className='mt-2 xl:w-1/2 flex flex-col border-2 p-3'>
+                                <div className='flex flex-col p-3 mt-2 border-2 xl:w-1/2'>
                                     <span className='hidden'>Departamento</span>
                                     <input
                                         type="text"
                                         placeholder='Departamento'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={departamento}
                                         onChange={(e) => {
                                             setdepartamento(e.target.value)
@@ -396,12 +390,12 @@ export const Chekcout = () => {
                             </section>
 
                             <section>
-                                <div className='mt-2 w-full flex flex-col border-2 p-3 rounded'>
+                                <div className='flex flex-col w-full p-3 mt-2 border-2 rounded'>
                                     <span className='hidden'>Teléfono</span>
                                     <input
                                         type="text"
                                         placeholder='Teléfono'
-                                        className='outline-none uppercase'
+                                        className='uppercase outline-none'
                                         value={telefono}
                                         onChange={(e) => {
                                             settelefono(e.target.value)
@@ -411,9 +405,9 @@ export const Chekcout = () => {
                             </section>
 
                             <section>
-                                <div className='mt-2 w-full flex flex-col border-2 p-3 rounded'>
+                                <div className='flex flex-col w-full p-3 mt-2 border-2 rounded'>
                                     <textarea
-                                        className=' resize-none w-full h-32 outline-none'
+                                        className='w-full h-32 outline-none resize-none '
                                         placeholder='Observación...'
                                         value={observacion}
                                         onChange={(e) => {
@@ -426,47 +420,47 @@ export const Chekcout = () => {
 
                         </div>
 
-                        <div className='flex w-full  xl:gap-x-12 mt-12'>
+                        <div className='flex w-full mt-12 xl:gap-x-12'>
                             <button
-                                className='w-1/2 bg-green-600 flex justify-center items-center gap-x-2 xl:gap-x-12 py-2 rounded-lg text-white text-lg'
+                                className='flex items-center justify-center w-1/2 py-2 text-lg text-white bg-green-600 rounded-lg gap-x-2 xl:gap-x-12'
                                 onClick={validar_inputs}
                                 disabled={(carrito && carrito.length > 0) ? false:true}
                             >
                                 <span><AiOutlineWhatsApp size={20} /></span>
                                 <span>Enviar pedido</span>
                             </button>
-                            <button onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }} className='w-1/2 underline bg-transparent text-lg'>Seguir comprando</button>
+                            <button onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }} className='w-1/2 text-lg underline bg-transparent'>Seguir comprando</button>
                         </div>
 
 
                     </div>
                 </section>
                 <section className='lg:w-1/2 lg:px-12'>
-                    <div className='my-24 px-2 lg:px-12 w-full overflow-y-scroll flex flex-col gap-y-2 h-1/2 Scroll-invisible'>
+                    <div className='flex flex-col w-full px-2 my-24 overflow-y-scroll lg:px-12 gap-y-2 h-1/2 Scroll-invisible'>
                         {
                             (carrito && carrito.length > 0) && (
                                 carrito.map((item, index) => (
-                                    <div key={index} className='mt-1 w-full'>
+                                    <div key={index} className='w-full mt-1'>
                                         <div className='flex justify-between'>
                                             <article className='flex gap-x-4'>
                                                 <div className='relative'>
                                                     <div className='w-20 h-20 lg:w-16 lg:h-16'>
                                                         <img
                                                             src={ConsultarImagenes(item.imagen)}
-                                                            className='w-full h-full border-2 border-gray-300 rounded object-cover'
+                                                            className='object-cover w-full h-full border-2 border-gray-300 rounded'
                                                         />
                                                     </div>
 
-                                                    <span className='absolute -top-1 -right-1 bg-green-600 w-5 h-5 text-white rounded-full flex justify-center items-center text-xs'>{item.cantidad}</span>
+                                                    <span className='absolute flex items-center justify-center w-5 h-5 text-xs text-white bg-green-600 rounded-full -top-1 -right-1'>{item.cantidad}</span>
                                                 </div>
 
                                                 <div className='flex flex-col gap-y-2'>
-                                                    <p className='lg:w-40 text-xs font-medium'>{item.descripcion}</p>
+                                                    <p className='text-xs font-medium lg:w-40'>{item.descripcion}</p>
                                                     <p className='text-xs text-gray-500'>{item.referencia}</p>
                                                 </div>
                                             </article>
 
-                                            <p className='font-medium text-sm'>${FormateoNumberInt((item.subTotal).toString())}</p>
+                                            <p className='text-sm font-medium'>${FormateoNumberInt((item.subTotal).toString())}</p>
                                         </div>
                                     </div>
                                 ))
@@ -475,7 +469,7 @@ export const Chekcout = () => {
 
 
                     </div>
-                    <article className='flex mt-4 justify-between font-medium border-t-2 py-2'>
+                    <article className='flex justify-between py-2 mt-4 font-medium border-t-2'>
                         <p className=''>Total</p>
                         <span>${FormateoNumberInt(calcularTotal())}</span>
                     </article>
@@ -487,9 +481,9 @@ export const Chekcout = () => {
             {/* SECCION DE AGOTADOS Y CAMBIOS DE PRECIO */}
             {
                 (agotados.length > 0 || cambios_precio.length > 0) && (
-                    <div className='fixed w-screen h-screen top-0 left-0 flex items-center justify-center'>
-                        <div className='w-full h-full absolute bg-gray-900/40 z-10'></div>
-                        <div className='w-96 h-3/4 bg-white z-20 p-4 flex flex-col'>
+                    <div className='fixed top-0 left-0 flex items-center justify-center w-screen h-screen'>
+                        <div className='absolute z-10 w-full h-full bg-gray-900/40'></div>
+                        <div className='z-20 flex flex-col p-4 bg-white w-96 h-3/4'>
                             <span
                                 onClick={() => {
                                     setagotados([])
@@ -499,19 +493,19 @@ export const Chekcout = () => {
                             ><BiArrowBack size={20} /></span>
 
                             <p className='text-lg text-slate-500'>Los siguientes productos presentan novedades:</p>
-                            <div className='w-full h-2/3 overflow-y-scroll'>
+                            <div className='w-full overflow-y-scroll h-2/3'>
                                 {
                                     agotados.map((agotado, index) => (
                                         <div className='flex space-y-2' key={index}>
-                                            <div className='w-20 h-20 flex items-center justify-center'>
+                                            <div className='flex items-center justify-center w-20 h-20'>
                                                 <img
                                                     src={ConsultarImagenes(agotado.imagen)}
                                                 />
                                             </div>
                                             <div>
-                                                <p className='font-medium text-slate-600 text-sm'>{agotado.descripcion}</p>
-                                                <p className='text-slate-400 font-medium text-xs'>{agotado.referencia}</p>
-                                                <p className='text-red-400 font-medium text-xs'>agotado</p>
+                                                <p className='text-sm font-medium text-slate-600'>{agotado.descripcion}</p>
+                                                <p className='text-xs font-medium text-slate-400'>{agotado.referencia}</p>
+                                                <p className='text-xs font-medium text-red-400'>agotado</p>
                                             </div>
                                         </div>
                                     ))
@@ -519,26 +513,26 @@ export const Chekcout = () => {
                                 {
                                     cambios_precio.map((cambio, index) => (
                                         <div className='flex space-y-2' key={index}>
-                                            <div className='w-20 h-20 flex items-center justify-center'>
+                                            <div className='flex items-center justify-center w-20 h-20'>
                                                 <img
                                                     src={ConsultarImagenes(cambio.imagen)}
                                                 />
                                             </div>
                                             <div>
-                                                <p className='font-medium text-slate-600 text-sm'>{cambio.descripcion}</p>
-                                                <p className='text-slate-400 font-medium text-xs'>{cambio.referencia}</p>
-                                                <p className='text-yellow-400 font-medium text-xs'>Cambio de precio</p>
+                                                <p className='text-sm font-medium text-slate-600'>{cambio.descripcion}</p>
+                                                <p className='text-xs font-medium text-slate-400'>{cambio.referencia}</p>
+                                                <p className='text-xs font-medium text-yellow-400'>Cambio de precio</p>
                                                 <p className='text-xs'>
-                                                    <span className='text-slate-500 font-medium'>{cambio.precio_actual}</span>
-                                                    <span className=' line-through text-slate-400'>({cambio.precio_anterior})</span>
+                                                    <span className='font-medium text-slate-500'>{cambio.precio_actual}</span>
+                                                    <span className='line-through text-slate-400'>({cambio.precio_anterior})</span>
                                                 </p>
                                             </div>
                                         </div>
                                     ))
                                 }
                             </div>
-                            <p className='text-xs text-slate-500 tracking-wide mt-4'>Para finalizar el pedido es necesario eliminar los productos agotados del carrito</p>
-                            <button onClick={aplicar_novedades} className='my-4 px-8 py-2 rounded-xl bg-blue-800 border-2 border-blue-800 text-white hover:bg-white hover:text-blue-800 transition-all text-center cursor-pointer'>Aplicar Cambios</button>
+                            <p className='mt-4 text-xs tracking-wide text-slate-500'>Para finalizar el pedido es necesario eliminar los productos agotados del carrito</p>
+                            <button onClick={aplicar_novedades} className='px-8 py-2 my-4 text-center text-white transition-all bg-blue-800 border-2 border-blue-800 cursor-pointer rounded-xl hover:bg-white hover:text-blue-800'>Aplicar Cambios</button>
                         </div>
                     </div>
                 )
@@ -546,8 +540,8 @@ export const Chekcout = () => {
 
             {
                 isEnviandoPedido && (
-                    <div className='fixed w-screen h-screen flex justify-center items-center top-0 left-0'>
-                        <div className='w-full h-full absolute top-0 left-0 bg-gray-600/20 z-10'></div>
+                    <div className='fixed top-0 left-0 flex items-center justify-center w-screen h-screen'>
+                        <div className='absolute top-0 left-0 z-10 w-full h-full bg-gray-600/20'></div>
                         <article className='z-20 space-y-4'>
                             <div className='flex items-center justify-center'>
                                 <LoaderComponent />
@@ -560,18 +554,18 @@ export const Chekcout = () => {
 
             {
                 isPedidoEnviado && (
-                    <div className='fixed w-screen h-screen flex justify-center items-center top-0 left-0'>
-                        <div className='w-full h-full absolute top-0 left-0 bg-gray-600/20 z-10'></div>
-                        <article className='z-20 px-12 py-8 bg-white flex flex-col'>
-                            <div className='flex justify-center items-center'>
+                    <div className='fixed top-0 left-0 flex items-center justify-center w-screen h-screen'>
+                        <div className='absolute top-0 left-0 z-10 w-full h-full bg-gray-600/20'></div>
+                        <article className='z-20 flex flex-col px-12 py-8 bg-white'>
+                            <div className='flex items-center justify-center'>
                                 <SendLottie />
                             </div>
-                            <p className=' text-center pb-12 font-medium text-gray-500'>El pedido se ha enviado con exitoso</p>
+                            <p className='pb-12 font-medium text-center text-gray-500 '>El pedido se ha enviado con exitoso</p>
                             <div className='flex flex-col md:flex-row gap-x-12'>
-                                <button onClick={Enviar_Confirmacion_Whatsapp} className='bg-green-400 text-white px-8 py-2 font-medium hover:bg-green-600  transition-all'>compartir por Whatsapp</button>
+                                <button onClick={Enviar_Confirmacion_Whatsapp} className='px-8 py-2 font-medium text-white transition-all bg-green-400 hover:bg-green-600'>compartir por Whatsapp</button>
                                 <button onClick={() => {
                                     navigate(`${RUTAS.TIENDA}?${querySearchParams}`)
-                                }} className='bg-blue-400 text-white px-8 py-2 font-medium hover:bg-blue-600  transition-all'>Volver a la tienda</button>
+                                }} className='px-8 py-2 font-medium text-white transition-all bg-blue-400 hover:bg-blue-600'>Volver a la tienda</button>
                             </div>
                         </article>
                     </div>

@@ -32,7 +32,7 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 }
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
 
         }
     }
@@ -61,17 +61,17 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                     precio: precio
                 })
             }}
-            className='flex flex-col bg-white pb-4 rounded-md hover:scale-105 transition-all border-2 border-gray-300 overflow-hidden'
+            className='flex flex-col pb-4 overflow-hidden transition-all bg-white border-2 border-gray-300 rounded-md hover:scale-105'
         >
             <img
                 src={`${(producto && producto.StrArchivo !== null) ? ConsultarImagenes(producto.StrArchivo) : ""} `}
                 loading='lazy'
-                className='w-full h-72 rounded-t-lg object-contain cursor-pointer '
+                className='object-contain w-full rounded-t-lg cursor-pointer h-72 '
                 alt={`${producto.StrDescripcion}`}
             />
             <div className='px-2 mt-8'>
-                <p className='font-medium w-52 lg:w-40 truncate'>{producto.StrDescripcion ? producto.StrDescripcion : "Undefined"}</p>
-                <p className='font-medium text-slate-700 text-sm'>{producto.StrIdProducto ? producto.StrIdProducto : "Undefined"}</p>
+                <p className='font-medium truncate w-52 lg:w-40'>{producto.StrDescripcion ? producto.StrDescripcion : "Undefined"}</p>
+                <p className='text-sm font-medium text-slate-700'>{producto.StrIdProducto ? producto.StrIdProducto : "Undefined"}</p>
                 <p className='font-medium text-blue-700'>${precio ? FormateoNumberInt(precio) : "Error"} / <span>{producto.StrUnidad ? producto.StrUnidad : "Undefined"}</span></p>
                 <div className='letrero_iva'>
                     * Precio con iva incluido *

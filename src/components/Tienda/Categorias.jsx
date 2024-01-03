@@ -51,7 +51,7 @@ export const Categorias = ({
             const categorias = data_Categorias.data.data
             setcategorias(categorias)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setisLoadCategorias(false)
         }
@@ -178,7 +178,7 @@ export const Categorias = ({
 
     return (
         <section className={`absolute right-0 xl:left-0 h-auto w-[280px] min-h-[350px] max-h-[600px] overflow-y-scroll py-2 bg-white Scroll-invisible ${isViewModalCategoriasMobile ? "inline" : "hidden"} xl:flex z-20 border-2 border-gray-300`}>
-            <div className='w-full font-medium text-sm'>
+            <div className='w-full text-sm font-medium'>
 
                 {
                     subCategorias !== null ?
@@ -187,12 +187,12 @@ export const Categorias = ({
                                 onClick={() => {
                                     LimpiarDatos()
                                 }}
-                                className='flex w-auto items-center gap-x-3 cursor-pointer px-4 mb-2'
+                                className='flex items-center w-auto px-4 mb-2 cursor-pointer gap-x-3'
                             >
                                 <span><BiArrowBack size={20} /></span>
                                 <span>Volver</span>
                             </div>
-                            <h4 className='text-lg font-bold text-black text-center'>{subCategorias.categoria.StrDescripcion}</h4>
+                            <h4 className='text-lg font-bold text-center text-black'>{subCategorias.categoria.StrDescripcion}</h4>
                             <div className='mt-2'>
                                 {
                                     subCategorias.subCategorias.map((lineas) => (
@@ -213,10 +213,10 @@ export const Categorias = ({
                                                     />
                                                 </label>
                                                 <div
-                                                    className='flex mx-4 justify-between items-center w-full py-5'
+                                                    className='flex items-center justify-between w-full py-5 mx-4'
                                                     onClick={() => { Desplegar_Subcategorias(lineas.linea.StrIdLinea) }}
                                                 >
-                                                    <p className=' '>{lineas.linea.StrDescripcion}</p>
+                                                    <p className=''>{lineas.linea.StrDescripcion}</p>
                                                     {lineas.grupos.length > 1 &&
                                                         (<span className=' text-end'>
                                                             {subCategoriaSelected.find((item) => { return item == lineas.linea.StrIdLinea }) ? <AiFillCaretUp size={20} /> : <AiFillCaretDown size={20} />}
@@ -232,7 +232,7 @@ export const Categorias = ({
                                                             lineas.grupos.map((grupo) => (
                                                                 grupo.grupo.strIdGrupo !== '0' &&
                                                                 <div key={grupo.grupo.strIdGrupo}>
-                                                                    <div className='flex gap-x-6 text-gray-700 py-2 items-center'>
+                                                                    <div className='flex items-center py-2 text-gray-700 gap-x-6'>
                                                                         <input
                                                                             className={"!w-4 !h-4"}
                                                                             type='checkbox'
@@ -248,7 +248,7 @@ export const Categorias = ({
                                                                         {
                                                                             grupo.tipos.map((tipo) => (
                                                                                 tipo.strIdTipo !== "0" &&
-                                                                                <div className='flex ml-6 gap-x-4 py-2 text-gray-500' key={tipo.strIdTipo}>
+                                                                                <div className='flex py-2 ml-6 text-gray-500 gap-x-4' key={tipo.strIdTipo}>
                                                                                     <input
                                                                                         className={"w-4 h-4"}
                                                                                         type='checkbox'
@@ -279,11 +279,11 @@ export const Categorias = ({
                         :
                         (!isLoadCategorias && subCategorias == null ?
                             (<>
-                                <h3 className='font-medium text-center my-2 text-base text-blue-800'>Seleccione una categoria</h3>
+                                <h3 className='my-2 text-base font-medium text-center text-blue-800'>Seleccione una categoria</h3>
                                 {categorias.map((categoria) => (
                                     <div
                                         key={categoria.StrIdClase}
-                                        className='cursor-pointer py-6 px-2 hover:text-blue-600 '
+                                        className='px-2 py-6 cursor-pointer hover:text-blue-600 '
                                         onClick={() => { consultar_SubCategorias(categoria) }}
                                     >
                                         <p>{categoria.StrDescripcion}</p>
@@ -293,7 +293,7 @@ export const Categorias = ({
 
                             ) :
                             (
-                                <div className='absolute top-0 bottom-0 m-auto w-full h-full flex flex-col gap-y-5 justify-center items-center'>
+                                <div className='absolute top-0 bottom-0 flex flex-col items-center justify-center w-full h-full m-auto gap-y-5'>
                                     <LoaderComponent />
                                     <span> Cargando Categorias...</span>
                                 </div>

@@ -69,7 +69,7 @@ export const Login = () => {
                     hideProgressBar: true
                 })
             } else {
-                console.log(error)
+                console.error(error)
             }
         } finally {
             setvalidando(false)
@@ -77,19 +77,19 @@ export const Login = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-screen md:w-1/2 lg:w-1/3 relative">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="relative w-screen p-8 bg-white rounded shadow-md md:w-1/2 lg:w-1/3">
                 <section className='flex items-center justify-between pr-4'>
-                    <h2 className="text-4xl font-semibold mb-4">Bienvenid@</h2>
+                    <h2 className="mb-4 text-4xl font-semibold">Bienvenid@</h2>
                     <img
                         src={Inmoda_Logo}
                         alt='Logo de la empresa INMODA FANTASY S.A.S'
-                        className='w-20 h-20 sm:w-28 sm:h-28 border-2 rounded-full p-2 border-sky-600'
+                        className='w-20 h-20 p-2 border-2 rounded-full sm:w-28 sm:h-28 border-sky-600'
                     />
                 </section>
                 <section>
                     <div className="mb-4">
-                        <label className="block text-gray-600 text-sm font-medium mb-2" htmlFor="id">
+                        <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="id">
                             Identificación
                         </label>
                         <input
@@ -104,7 +104,7 @@ export const Login = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-600 text-sm font-medium mb-2" htmlFor="password">
+                        <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="password">
                             Contraseña
                         </label>
                         <input
@@ -117,25 +117,25 @@ export const Login = () => {
                                 setclave(e.target.value)
                             }}
                         />
-                        {/* <label className='text-gray-600 text-xs my-2 font-medium mb-2 underline cursor-pointer hover:text-blue-700'>Recuperar Contraseña</label> */}
+                        {/* <label className='my-2 mb-2 text-xs font-medium text-gray-600 underline cursor-pointer hover:text-blue-700'>Recuperar Contraseña</label> */}
                     </div>
 
                     <button
-                        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                        className="w-full py-2 text-white transition duration-300 bg-blue-500 rounded-lg hover:bg-blue-600"
                         type="submit"
                         onClick={Login}
                         disabled={validando}
                     >
                         Iniciar sesión
                     </button>
-                    <span className='block text-center text-xl mt-4 font-medium'>¿No tienes cuenta?</span>
-                    <div className='flex justify-center items-center'>
-                        <a href='https://panel.inmodafantasy.com.co/#/clientes/registro' target='_blank' className=' cursor-pointer underline hover:text-blue-700 font-medium'>Registrate</a>
+                    <span className='block mt-4 text-xl font-medium text-center'>¿No tienes cuenta?</span>
+                    <div className='flex items-center justify-center'>
+                        <a href='https://panel.inmodafantasy.com.co/#/clientes/registro' target='_blank' className='font-medium underline cursor-pointer  hover:text-blue-700'>Registrate</a>
                     </div>
 
                 </section>
 
-                <div onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }} className='absolute left-4 top-4 flex items-center justify-center gap-x-2 cursor-pointer hover:scale-110 transition-all'>
+                <div onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }} className='absolute flex items-center justify-center transition-all cursor-pointer left-4 top-4 gap-x-2 hover:scale-110'>
                     <span className='text-gray-500'><BiArrowBack size={20} /></span>
                     <span className='text-gray-500'>Volver a la tienda</span>
                 </div>
