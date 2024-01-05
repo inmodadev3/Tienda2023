@@ -70,7 +70,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                 if (usuario) {
                     setprecio(usuario.IntPrecio)
                 } else {
-                    setprecio(3)
+                    setprecio(4)
                 }
             }
         } catch (error) {
@@ -90,7 +90,7 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
             case 4:
                 return producto.IntPrecio4
             default:
-                return producto.IntPrecio3
+                return producto.IntPrecio4
         }
     }
 

@@ -29,7 +29,7 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                     let precio = listas_Precios(usuario.IntPrecio)
                     setprecio(precio)
                 } else {
-                    setprecio(producto.IntPrecio3)
+                    setprecio(producto.IntPrecio4)
                 }
             }
         } catch (error) {
@@ -49,7 +49,7 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
             case 4:
                 return producto.IntPrecio4
             default:
-                return producto.IntPrecio3
+                return producto.IntPrecio4
         }
     }
 
