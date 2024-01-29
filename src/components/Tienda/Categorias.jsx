@@ -163,17 +163,19 @@ export const Categorias = ({
     }
 
     //VALIDAR Tipos CHECKEADOS
-    const checkearTipos = (IdTipo) => {
-        const tiposFind = tiposChecked.find((item) => { return item == IdTipo })
+    const checkearTipos = (IdTipo ,IdGrupo) => {
+        const tiposFind = tiposChecked.find((item) => { return item.IdTipo == IdTipo })
+
         if (tiposFind) {
             settiposChecked((subcategoria) => {
-                return subcategoria.filter((item) => { return item !== IdTipo })
+                return subcategoria.filter((item) => { return item.IdTipo !== IdTipo })
             })
         } else {
             settiposChecked((subcategoria) => {
-                return [...subcategoria, IdTipo]
+                return [...subcategoria, {IdTipo,IdGrupo}]
             })
         }
+
     }
 
     return (
@@ -253,10 +255,10 @@ export const Categorias = ({
                                                                                         className={"w-4 h-4"}
                                                                                         type='checkbox'
                                                                                         value={""}
-                                                                                        checked={(lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) | (gruposChecked.find((item) => item == grupo.grupo.strIdGrupo) ? true : false) | (tiposChecked.find((item) => item == tipo.strIdTipo))}
+                                                                                        checked={(lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) | (gruposChecked.find((item) => item == grupo.grupo.strIdGrupo) ? true : false) | (tiposChecked.find(item => item.IdTipo == tipo.strIdTipo && item.IdGrupo == grupo.grupo.strIdGrupo) ? true: false)}
                                                                                         disabled={(lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) | (gruposChecked.find((item) => item == grupo.grupo.strIdGrupo) ? true : false)}
                                                                                         onChange={() => {
-                                                                                            checkearTipos(tipo.strIdTipo)
+                                                                                            checkearTipos(tipo.strIdTipo, grupo.grupo.strIdGrupo)
                                                                                         }}
                                                                                     />
                                                                                     <p>{tipo.strDescripcion}</p>

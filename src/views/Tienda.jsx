@@ -154,6 +154,7 @@ export const Tienda = () => {
         }
     }
 
+
     const consultar_Productos_Subcategorias = async (render_times) => {
         setisLoadingProductos(true)
         try {
@@ -167,7 +168,6 @@ export const Tienda = () => {
                 let productos_tipos;
 
                 let productos_subcategorias = []
-
 
                 if (lineasChecked.length !== 0) {
                     productos_lineas = await Axios.post(`/productos/lineas?pag=${pagina}`, { lineas: lineasChecked })
@@ -197,8 +197,9 @@ export const Tienda = () => {
                 }
 
                 if (tiposChecked.length !== 0) {
+                    let arratipos = tiposChecked.map(tipos => tipos.IdTipo)
                     productos_tipos = await Axios.post(`/productos/tipos?pag=${pagina}`, { tipos: tiposChecked })
-                    const data = await Axios.post('/productos/contar/tipo', { tipos: tiposChecked });
+                    const data = await Axios.post('/productos/contar/tipo', { tipos: arratipos });
                     if (data.data.success) {
                         suma += (data.data.Paginas)
                     } else {
