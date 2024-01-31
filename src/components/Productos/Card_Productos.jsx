@@ -48,10 +48,15 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 return producto.IntPrecio3
             case 4:
                 return producto.IntPrecio4
+            case 7:
+                return producto.IntPrecio7
+            case 8:
+                return producto.IntPrecio8
             default:
                 return producto.IntPrecio4
         }
     }
+
 
     return (
         <div
@@ -69,17 +74,29 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 loading='lazy'
                 className='object-contain w-full rounded-t-lg cursor-pointer h-72 '
                 alt={`${producto.StrDescripcion}`}
-                onError={(e)=>{
+                onError={(e) => {
                     e.target.src = soldOut
-                  }}
+                }}
             />
             <div className='px-2 mt-8'>
                 <p className='font-medium truncate w-52 lg:w-40'>{producto.StrDescripcion ? producto.StrDescripcion : "Undefined"}</p>
                 <p className='text-sm font-medium text-slate-700'>{producto.StrIdProducto ? producto.StrIdProducto : "Undefined"}</p>
                 <p className='font-medium text-blue-700'>${precio ? FormateoNumberInt(precio) : "Error"} / <span>{producto.StrUnidad ? producto.StrUnidad : "Undefined"}</span></p>
-                <div className='letrero_iva'>
-                    * Precio con iva incluido *
-                </div>
+                {
+                    usuario ? (
+                        (usuario.IntPrecio !== 7 && usuario.IntPrecio !== 8) && (
+                            <div className='letrero_iva'>
+                                * Precio con iva incluido *
+                            </div>
+                        )
+                    ) : (
+                        <div className='letrero_iva'>
+                            * Precio con iva incluido *
+                        </div>
+                    )
+
+                }
+
             </div>
 
 

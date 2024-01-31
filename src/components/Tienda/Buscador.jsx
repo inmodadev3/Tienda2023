@@ -89,6 +89,10 @@ export const Buscador = ({ setisViewModalProducto, setproducto_Modal }) => {
                 return producto.IntPrecio3
             case 4:
                 return producto.IntPrecio4
+            case 7:
+                return producto.IntPrecio7
+            case 8:
+                return producto.IntPrecio8
             default:
                 return producto.IntPrecio4
         }

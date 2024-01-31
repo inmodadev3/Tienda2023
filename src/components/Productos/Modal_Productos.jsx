@@ -353,9 +353,19 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                     {
                       (producto_info.data[0] && producto_info.data[0].CantPaca !== 0 && producto_info.data[0].CantPaca !== 1) &&
                       (
-                        <div className='mt-2 bg-gray-200 rounded-xl w-fit min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
+                        <div className='mt-2 bg-gray-200 rounded-xl min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col w-full'>
                           <p className='font-bold'>Cantidad por Paca:</p>
                           <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].CantPaca}`}</p>
+                        </div>
+                      )
+                    }
+
+                    {
+                      (producto_info.data[0] && producto_info.data[0].Color) &&
+                      (
+                        <div className='mt-2 bg-gray-200 rounded-xl w-full min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
+                          <p className='font-bold'>Color</p>
+                          <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].Color}`}</p>
                         </div>
                       )
                     }
