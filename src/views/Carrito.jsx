@@ -174,7 +174,17 @@ export const Carrito = () => {
                             <p className='font-bold text-gray-800'>Cantidad de productos:</p>
                             <p className='text-lg font-medium'>{productos.length}</p>
                         </article>
-                        <p className='text-[14px] font-medium text-slate-500 text-center'>El total se encuentra con el iva incluido*</p>
+                        {
+                            usuario ? (
+                                (usuario.IntPrecio !== 7 && usuario.IntPrecio !== 8) && (
+                                    <p className='text-[14px] font-medium text-slate-500 text-center'>El total se encuentra con el iva incluido*</p>
+                                )
+                            ) : (
+                                <p className='text-[14px] font-medium text-slate-500 text-center'>El total se encuentra con el iva incluido*</p>
+                            )
+
+                        }
+                        
 
                         <article className='flex justify-between px-2 py-2 mt-4 border-b-2 border-b-gray-500'>
                             <p className='font-bold text-gray-800'>Total:</p>
