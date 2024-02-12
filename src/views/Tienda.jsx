@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Productos } from '../components/Tienda/Productos'
 import { UsuarioContext } from '../routes/Routers'
 import { Modal_Productos } from '../components/Productos/Modal_Productos'
-import { default_price } from '../routes/QueryParams'
+import { categoria, default_price, vendedor_externo } from '../routes/QueryParams'
 import { Header } from '../components/Header/Header'
 
 
@@ -23,6 +23,7 @@ export const Tienda = () => {
     const [isLoadCategorias, setisLoadCategorias] = useState(false)
     const [isViewModalCategoriasMobile, setisViewModalCategoriasMobile] = useState(false)
     const [isLoadingProductos, setisLoadingProductos] = useState(false)
+    const [isViewInfoInmoda, setisViewInfoInmoda] = useState(false)
 
     /* CATEGORIAS Y SUBCATEGORIAS */
     const [categorias, setcategorias] = useState([])
@@ -53,6 +54,7 @@ export const Tienda = () => {
         let usuario = JSON.parse(localStorage.getItem("usuario"))
         let precio_default = querySearchParams.get(default_price)
         let carrito = JSON.parse(localStorage.getItem("carrito"))
+        let infoInmoda = querySearchParams.get(vendedor_externo)
 
         if (precio_default) {
             if (carrito) {
@@ -62,6 +64,12 @@ export const Tienda = () => {
             if (usuario) {
                 setUsuario(usuario)
             }
+        }
+
+        if(infoInmoda){
+            setisViewInfoInmoda(false)
+        }else{
+            setisViewInfoInmoda(true)
         }
 
         Consultar_Total_Productos()
@@ -118,7 +126,7 @@ export const Tienda = () => {
     const FocusTienda = () => {
         if (titulo_tiendaRef.current) {
             titulo_tiendaRef.current.scrollIntoView({
-                behavior: 'smooth', // Puedes ajustar el comportamiento de desplazamiento
+                behavior: 'smooth', 
             });
         }
     }
@@ -140,7 +148,6 @@ export const Tienda = () => {
 
         } catch (error) {
             console.error(error)
-            alert(import.meta.env.VITE_API_URL_HOST)
             toast.error(` Ha ocurrido un error al consultar los productos`, {
                 closeOnClick: true,
                 theme: 'colored',
@@ -184,8 +191,9 @@ export const Tienda = () => {
                 }
 
                 if (gruposChecked.length !== 0) {
+                    let arrayGrupos = gruposChecked.map(grupos => grupos.IdGrupo)
                     productos_grupos = await Axios.post(`/productos/grupos?pag=${pagina}`, { grupos: gruposChecked })
-                    const data = await Axios.post('/productos/contar/grupo', { grupos: gruposChecked });
+                    const data = await Axios.post('/productos/contar/grupo', { grupos: arrayGrupos });
                     if (data.data.success) {
                         suma += (data.data.Paginas)
                     } else {
@@ -245,7 +253,7 @@ export const Tienda = () => {
     return (
         <div className='min-h-screen overflow-x-hidden overflow-y-hidden bg-gradient-to-b from-gray-50 to-gray-200'>
             {/* ENCABEZADO TIENDA */}
-            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} />
+            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} isViewInfoInmoda={isViewInfoInmoda}/>
 
             {/*FILTROS  */}
             <section className='justify-between block px-4 mt-24 md:flex md:mx-24'>

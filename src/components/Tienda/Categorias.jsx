@@ -3,6 +3,8 @@ import Axios from '../../utilities/Axios'
 import { LoaderComponent } from '../Loader/LoaderComponent'
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai'
 import { BiArrowBack } from 'react-icons/bi'
+import { useLocation } from 'react-router-dom'
+import { categoria } from '../../routes/QueryParams'
 
 export const Categorias = ({
     subCategorias,
@@ -27,9 +29,22 @@ export const Categorias = ({
     Consultar_Total_Productos, //FUNCION PARA CALCULAR EL TOTAL DE PRODUCTOS POR CATEGORIAS
 }) => {
 
+    const url = useLocation()
+    const querySearchParams = new URLSearchParams(url.search);
+
     useEffect(() => {
         consultar_Categorias()
     }, [])
+
+    useEffect(()=>{
+        const categoria_parametro = querySearchParams.get(categoria)
+        if(categorias.length > 0 &&  categoria_parametro){
+            let findCategoria = categorias.find((categoria)=>categoria.StrDescripcion == categoria_parametro)
+            if(findCategoria){
+                consultar_SubCategorias(findCategoria)
+            }
+        }
+    },[categorias])
 
 
     const LimpiarDatos = () => {
@@ -89,7 +104,7 @@ export const Categorias = ({
                 };
 
                 for (const grupo of grupos) {
-                    const data_Tipos = await Axios.get(`/categorias/lineas/grupos/tipos?Grupo=${grupo.strIdGrupo}`);
+                    const data_Tipos = await Axios.get(`/categorias/lineas/grupos/tipos?Grupo=${grupo.strIdGrupo}&Linea=${linea.StrIdLinea}`);
                     const tipos = data_Tipos.data.data;
 
                     const grupoInfo = {
@@ -149,21 +164,22 @@ export const Categorias = ({
     }
 
     //VALIDAR GRUPOS CHECKEADOS
-    const chekearGrupos = (IdGrupo) => {
-        const gruposFind = gruposChecked.find((item) => { return item == IdGrupo })
+    const chekearGrupos = (IdGrupo,IdLinea) => {
+        const gruposFind = gruposChecked.find((item) => { return item.IdGrupo == IdGrupo })
+        console.log(IdLinea)
         if (gruposFind) {
             setgruposChecked((subcategoria) => {
-                return subcategoria.filter((item) => { return item !== IdGrupo })
+                return subcategoria.filter((item) => { return item.IdGrupo !== IdGrupo })
             })
         } else {
             setgruposChecked((subcategoria) => {
-                return [...subcategoria, IdGrupo]
+                return [...subcategoria, {IdGrupo,IdLinea}]
             })
         }
     }
 
     //VALIDAR Tipos CHECKEADOS
-    const checkearTipos = (IdTipo ,IdGrupo) => {
+    const checkearTipos = (IdTipo ,IdGrupo, IdLinea) => {
         const tiposFind = tiposChecked.find((item) => { return item.IdTipo == IdTipo })
 
         if (tiposFind) {
@@ -172,11 +188,12 @@ export const Categorias = ({
             })
         } else {
             settiposChecked((subcategoria) => {
-                return [...subcategoria, {IdTipo,IdGrupo}]
+                return [...subcategoria, {IdTipo,IdGrupo,IdLinea}]
             })
         }
 
     }
+
 
     return (
         <section className={`absolute right-0 xl:left-0 h-auto w-[280px] min-h-[350px] max-h-[600px] overflow-y-scroll py-2 bg-white Scroll-invisible ${isViewModalCategoriasMobile ? "inline" : "hidden"} xl:flex z-20 border-2 border-gray-300`}>
@@ -234,14 +251,18 @@ export const Categorias = ({
                                                             lineas.grupos.map((grupo) => (
                                                                 grupo.grupo.strIdGrupo !== '0' &&
                                                                 <div key={grupo.grupo.strIdGrupo}>
+
                                                                     <div className='flex items-center py-2 text-gray-700 gap-x-6'>
                                                                         <input
                                                                             className={"!w-4 !h-4"}
                                                                             type='checkbox'
                                                                             disabled={lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false}
-                                                                            checked={(lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) | (gruposChecked.find((item) => item == grupo.grupo.strIdGrupo))}
+                                                                            checked={
+                                                                                (lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) 
+                                                                                | (gruposChecked.find((item) => item.IdGrupo == grupo.grupo.strIdGrupo && item.IdLinea == lineas.linea.StrIdLinea) ? true : false)
+                                                                            }
                                                                             onChange={() => {
-                                                                                chekearGrupos(grupo.grupo.strIdGrupo)
+                                                                                chekearGrupos(grupo.grupo.strIdGrupo,lineas.linea.StrIdLinea)
                                                                             }}
                                                                         />
                                                                         <p>{grupo.grupo.StrDescripcion}</p>
@@ -255,10 +276,17 @@ export const Categorias = ({
                                                                                         className={"w-4 h-4"}
                                                                                         type='checkbox'
                                                                                         value={""}
-                                                                                        checked={(lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) | (gruposChecked.find((item) => item == grupo.grupo.strIdGrupo) ? true : false) | (tiposChecked.find(item => item.IdTipo == tipo.strIdTipo && item.IdGrupo == grupo.grupo.strIdGrupo) ? true: false)}
-                                                                                        disabled={(lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) | (gruposChecked.find((item) => item == grupo.grupo.strIdGrupo) ? true : false)}
+                                                                                        checked={
+                                                                                            (lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) 
+                                                                                            | (gruposChecked.find((item) => item.IdGrupo == grupo.grupo.strIdGrupo) ? true : false) 
+                                                                                            | (tiposChecked.find(item => item.IdTipo == tipo.strIdTipo && item.IdGrupo == grupo.grupo.strIdGrupo) ? true: false)
+                                                                                        }
+                                                                                        disabled={
+                                                                                            (lineasChecked.find((item) => { return item == lineas.linea.StrIdLinea }) ? true : false) 
+                                                                                            | (gruposChecked.find((item) => item.IdGrupo == grupo.grupo.strIdGrupo) ? true : false)
+                                                                                        }
                                                                                         onChange={() => {
-                                                                                            checkearTipos(tipo.strIdTipo, grupo.grupo.strIdGrupo)
+                                                                                            checkearTipos(tipo.strIdTipo, grupo.grupo.strIdGrupo,lineas.linea.StrIdLinea)
                                                                                         }}
                                                                                     />
                                                                                     <p>{tipo.strDescripcion}</p>
