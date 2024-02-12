@@ -235,7 +235,7 @@ export const Categorias = ({
                                                     className='flex items-center justify-between w-full py-5 mx-4'
                                                     onClick={() => { Desplegar_Subcategorias(lineas.linea.StrIdLinea) }}
                                                 >
-                                                    <p className=''>{lineas.linea.StrDescripcion}</p>
+                                                    <p className=''>{lineas.linea.StrDescripcion == "UNAS" ? "UÑAS" : lineas.linea.StrDescripcion}</p>
                                                     {lineas.grupos.length > 1 &&
                                                         (<span className=' text-end'>
                                                             {subCategoriaSelected.find((item) => { return item == lineas.linea.StrIdLinea }) ? <AiFillCaretUp size={20} /> : <AiFillCaretDown size={20} />}
@@ -265,7 +265,7 @@ export const Categorias = ({
                                                                                 chekearGrupos(grupo.grupo.strIdGrupo,lineas.linea.StrIdLinea)
                                                                             }}
                                                                         />
-                                                                        <p>{grupo.grupo.StrDescripcion}</p>
+                                                                        <p>{grupo.grupo.StrDescripcion == "CORTAUNAS" ? "CORTAUÑAS" : grupo.grupo.StrDescripcion}</p>
                                                                     </div>
                                                                     <div className='py-2'>
                                                                         {
@@ -313,7 +313,7 @@ export const Categorias = ({
                                 {categorias.map((categoria) => (
                                     <div
                                         key={categoria.StrIdClase}
-                                        className='px-2 py-6 cursor-pointer hover:text-blue-600 '
+                                        className='px-2 py-6 border-b-2 cursor-pointer hover:bg-blue-600 hover:text-white border-b-slate-300'
                                         onClick={() => { consultar_SubCategorias(categoria) }}
                                     >
                                         <p>{categoria.StrDescripcion}</p>

@@ -426,11 +426,12 @@ export const Chekcout = () => {
                                 className='flex items-center justify-center w-1/2 py-2 text-lg text-white bg-green-600 rounded-lg gap-x-2 xl:gap-x-12'
                                 onClick={validar_inputs}
                                 disabled={(carrito && carrito.length > 0) ? false : true}
+                                title='Click si estas seguro de enviar tu pedido.'
                             >
                                 <span><AiOutlineWhatsApp size={20} /></span>
                                 <span>Enviar pedido</span>
                             </button>
-                            <button onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }} className='w-1/2 text-lg underline bg-transparent'>Seguir comprando</button>
+                            <button title='Click si deseas agregar algo más al pedido.' onClick={() => { navigate(`${RUTAS.TIENDA}?${querySearchParams}`) }} className='w-1/2 text-lg text-white underline bg-blue-500 rounded-lg'>Seguir comprando</button>
                         </div>
 
 

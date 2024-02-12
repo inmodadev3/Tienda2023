@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
 .Scroll-invisible::-webkit-scrollbar {
     width: 4px;
     height: 4px;
