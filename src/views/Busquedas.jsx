@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { texto_buscar } from '../routes/QueryParams';
+import { texto_buscar, vendedor_externo } from '../routes/QueryParams';
 import RUTAS from '../routes/PATHS';
 import Axios from '../utilities/Axios';
 import { useState } from 'react';
@@ -26,12 +26,21 @@ export const Busquedas = () => {
     const [isViewModalProducto, setisViewModalProducto] = useState(false)
     const [producto_Modal, setproducto_Modal] = useState(null)
     const [carritoTotalProductos, setcarritoTotalProductos] = useState(0)
+    const [isViewInfoInmoda, setisViewInfoInmoda] = useState(false)
 
 
     const focus_pagina = useRef(null)
 
 
     useEffect(() => {
+        let infoInmoda = querySearchParams.get(vendedor_externo)
+
+        if(infoInmoda){
+            setisViewInfoInmoda(false)
+        }else{
+            setisViewInfoInmoda(true)
+        }
+
         cantidad_productos()
     }, [])
 
@@ -84,14 +93,14 @@ export const Busquedas = () => {
     return (
         <>
 
-            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} />
+            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} isViewInfoInmoda={isViewInfoInmoda}/>
 
             <div ref={focus_pagina} >
-                <div className='mt-24 mb-4 mx-10 md:mx-32'>
-                    <div className='my-4 md:space-x-8 flex items-start space-y-3 md:space-y-0 '>
-                        <a onClick={() => { navigate(`${RUTAS.TIENDA}?${parametro_sin_busqueda}`) }} className='cursor-pointer font-medium text-base hover:text-gray-500 transition-all underline'>Volver a la tienda</a>
-                        <a onClick={() => { navigate(`${RUTAS.CARRITO}?${parametro_sin_busqueda}`) }} className='cursor-pointer font-medium text-base hover:text-gray-500 transition-all hidden underline md:flex'>Carrito</a>
-                        <a onClick={() => { navigate(`${RUTAS.CHEKOUT}?${parametro_sin_busqueda}`) }} className='cursor-pointer font-medium text-base hover:text-gray-500 transition-all hidden underline md:flex'>Enviar pedido</a>
+                <div className='mx-10 mt-24 mb-4 md:mx-32'>
+                    <div className='flex items-start my-4 space-y-3 md:space-x-8 md:space-y-0 '>
+                        <a onClick={() => { navigate(`${RUTAS.TIENDA}?${parametro_sin_busqueda}`) }} className='text-base font-medium underline transition-all cursor-pointer hover:text-gray-500'>Volver a la tienda</a>
+                        <a onClick={() => { navigate(`${RUTAS.CARRITO}?${parametro_sin_busqueda}`) }} className='hidden text-base font-medium underline transition-all cursor-pointer hover:text-gray-500 md:flex'>Carrito</a>
+                        <a onClick={() => { navigate(`${RUTAS.CHEKOUT}?${parametro_sin_busqueda}`) }} className='hidden text-base font-medium underline transition-all cursor-pointer hover:text-gray-500 md:flex'>Enviar pedido</a>
                     </div>
                     
 
@@ -102,7 +111,7 @@ export const Busquedas = () => {
 
                 </div>
 
-                <div className='mx-8 md:mx-20 pb-20'>
+                <div className='pb-20 mx-8 md:mx-20'>
                     <Productos
                         arrayProductos={arrayProductos}
                         isLoadingProductos={isLoadingProductos}
@@ -117,7 +126,7 @@ export const Busquedas = () => {
                 </div>
             </div>
 
-            <div onClick={focus_top_pagina} className='fixed bottom-6 right-2 bg-blue-500 rounded-full p-2 cursor-pointer text-white transition-all hover:bg-blue-700'>
+            <div onClick={focus_top_pagina} className='fixed p-2 text-white transition-all bg-blue-500 rounded-full cursor-pointer bottom-6 right-2 hover:bg-blue-700'>
                 <span><AiOutlineArrowUp size={32} /></span>
             </div>
 
