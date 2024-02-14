@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom'
 import { default_price } from '../../routes/QueryParams'
 import './styles.css'
 import { soldOut } from '../../utilities/Imagenes'
+import moment from 'moment'
+import { AiFillStar } from 'react-icons/ai'
 
 export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_Modal }) => {
 
@@ -71,7 +73,7 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                     precio: precio
                 })
             }}
-            className='flex flex-col pb-4 overflow-hidden transition-all bg-white border-2 border-gray-300 rounded-md hover:scale-105'
+            className='relative flex flex-col pb-4 overflow-hidden transition-all bg-white border-2 border-gray-300 rounded-md hover:scale-105'
         >
             <img
                 src={`${(producto && producto.StrArchivo !== null) ? ConsultarImagenes(producto.StrArchivo) : ""} `}
@@ -102,6 +104,15 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
                 }
 
             </div>
+
+            {
+                (moment(Date.now()).diff(moment(producto.DatFechaFProdHab).format('L'), 'days')) < 15 && (
+                    <div className='absolute top-0 right-0 flex items-center w-1/2 px-4 text-white bg-blue-500 gap-x-4 rounded-bl-md rounded-tr-md'>
+                        <AiFillStar size={20} color='yellow'/>
+                        <span>Nuevo</span>
+                    </div>
+                )
+            }
 
 
         </div>
