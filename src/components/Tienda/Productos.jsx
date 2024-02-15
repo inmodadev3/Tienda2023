@@ -18,8 +18,8 @@ export const Productos = ({ arrayProductos, isLoadingProductos, pagina, total_Pa
               ))
             )
             : (
-              <div className='flex flex-col justify-center items-center w-full col-span-4'>
-                <span className='font-medium text-3xl my-12 text-center'>Cargando articulos</span>
+              <div className='flex flex-col items-center justify-center w-full col-span-4'>
+                <span className='my-12 text-3xl font-medium text-center'>Cargando articulos</span>
               </div>
             )
         }
@@ -35,7 +35,7 @@ export const Productos = ({ arrayProductos, isLoadingProductos, pagina, total_Pa
         {
           pagina < total_Paginas && (
             <div className='flex justify-center'>
-              <span onClick={() => { setpagina(pagina + 1) }} className='bg-blue-600 text-white w-32 text-center py-2 rounded cursor-pointer hover:bg-blue-800'>Cargar mas</span>
+              <span onClick={() => { setpagina(pagina + 1) }} className='w-32 py-2 text-center text-white bg-blue-600 rounded cursor-pointer hover:bg-blue-800'>Cargar mas</span>
             </div>
           )
         }
