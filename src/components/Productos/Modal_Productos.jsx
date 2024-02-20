@@ -323,7 +323,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
                       (producto_info.data[0] && producto_info.data[0].StrParam3) &&
                       (
                         <div className='mt-2 bg-gray-200 rounded-xl w-full min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
-                          <p className='font-bold'>Dimension</p>
+                          <p className='font-bold'>Dimensión</p>
                           <p className='font-medium text-gray-800 text-normal'>{` ${producto_info.data[0].StrParam3}`}</p>
                         </div>
                       )
