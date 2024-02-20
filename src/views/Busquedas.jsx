@@ -21,49 +21,61 @@ export const Busquedas = () => {
     const [total_productos, settotal_productos] = useState(0)
     const [total_paginas, settotal_paginas] = useState(0)
     const [pagina, setpagina] = useState(0)
-    const [arrayProductos, setarrayProductos] = useState(null)
+    const [arrayProductos, setarrayProductos] = useState([])
     const [isLoadingProductos, setisLoadingProductos] = useState(false)
     const [isViewModalProducto, setisViewModalProducto] = useState(false)
     const [producto_Modal, setproducto_Modal] = useState(null)
     const [carritoTotalProductos, setcarritoTotalProductos] = useState(0)
     const [isViewInfoInmoda, setisViewInfoInmoda] = useState(false)
 
+    const [textValueSearch, settextValueSearch] = useState('')
 
     const focus_pagina = useRef(null)
 
 
     useEffect(() => {
         let infoInmoda = querySearchParams.get(vendedor_externo)
-
-        if(infoInmoda){
+        settextValueSearch(querySearchParams.get(texto_buscar))
+        if (infoInmoda) {
             setisViewInfoInmoda(false)
-        }else{
+        } else {
             setisViewInfoInmoda(true)
         }
-
-        cantidad_productos()
     }, [])
+
+    useEffect(()=>{
+        cantidad_productos()
+    },[textValueSearch])
 
     useEffect(() => {
         Productos_Busqueda()
-    }, [pagina])
+    }, [pagina,textValueSearch])
 
 
     const Productos_Busqueda = async () => {
         try {
-            const { data } = await Axios.get(`productos/buscar/?p=${querySearchParams.get(texto_buscar)}&pag=${pagina}`)
-            if (data.success) {
-                if (arrayProductos !== null) {
-                    setarrayProductos((prevData) => {
-                        if (prevData !== null) {
-                            return [...prevData, ...data.data]
-                        }
-                    })
-                } else {
-                    setarrayProductos(data.data)
-                }
+            if (textValueSearch !== "") {
+                const { data } = await Axios.get(`productos/buscar/?p=${textValueSearch}&pag=${pagina}`)
+                if (data.success) {
+                    if (arrayProductos.length > 0) {
+                        setarrayProductos((prevData) => {
+                            if (prevData !== null) {
+                                return [...prevData, ...data.data]
+                            }
+                        })
+                    } else {
+                        setarrayProductos(data.data)
+                    }
 
+                } else {
+                    if (data.data == 0) {
+                        const { data } = await Axios.get(`productos/buscar/similares?p=${textValueSearch}`)
+                        console.log(data)
+                        settextValueSearch(data.data)
+                    }
+                }
             }
+
         } catch (error) {
             console.error(error)
         }
@@ -71,10 +83,12 @@ export const Busquedas = () => {
 
     const cantidad_productos = async () => {
         try {
-            const { data } = await Axios.get(`productos/contar/busqueda?q=${querySearchParams.get(texto_buscar)}`)
-            if (data.success) {
-                settotal_productos(data.total)
-                settotal_paginas(data.Paginas)
+            if (textValueSearch !== "") {
+                const { data } = await Axios.get(`productos/contar/busqueda?q=${textValueSearch}`)
+                if (data.success) {
+                    settotal_productos(data.total)
+                    settotal_paginas(data.Paginas)
+                }
             }
         } catch (error) {
             console.error(error)
@@ -93,7 +107,7 @@ export const Busquedas = () => {
     return (
         <>
 
-            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} isViewInfoInmoda={isViewInfoInmoda}/>
+            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} isViewInfoInmoda={isViewInfoInmoda} />
 
             <div ref={focus_pagina} >
                 <div className='mx-10 mt-24 mb-4 md:mx-32'>
@@ -102,10 +116,10 @@ export const Busquedas = () => {
                         <a onClick={() => { navigate(`${RUTAS.CARRITO}?${parametro_sin_busqueda}`) }} className='hidden text-base font-medium underline transition-all cursor-pointer hover:text-gray-500 md:flex'>Carrito</a>
                         <a onClick={() => { navigate(`${RUTAS.CHEKOUT}?${parametro_sin_busqueda}`) }} className='hidden text-base font-medium underline transition-all cursor-pointer hover:text-gray-500 md:flex'>Enviar pedido</a>
                     </div>
-                    
+
 
                     <div className='flex flex-col'>
-                        <h2>Resultados para la busqueda "{querySearchParams.get(texto_buscar)}"</h2>
+                        <h2>Resultados para la busqueda "{textValueSearch}"</h2>
                         <p>({total_productos}) productos</p>
                     </div>
 
