@@ -320,7 +320,7 @@ export const Modal_Productos = ({ setisViewModalProducto, producto_Modal, setcar
 
                   <div className='grid grid-cols-2 gap-x-4 lg:grid-cols-4'>
                     {
-                      (producto_info.data[0] && producto_info.data[0].StrParam3) &&
+                      (producto_info.data[0] && producto_info.data[0].StrParam3 && producto_info.data[0].StrParam3.toString() !== "0") &&
                       (
                         <div className='mt-2 bg-gray-200 rounded-xl w-full min-w-[120px] pr-4 pl-2 py-2 flex gap-x-6 flex-col'>
                           <p className='font-bold'>Dimensión</p>

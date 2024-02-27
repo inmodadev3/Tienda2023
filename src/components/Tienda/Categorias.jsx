@@ -166,7 +166,6 @@ export const Categorias = ({
     //VALIDAR GRUPOS CHECKEADOS
     const chekearGrupos = (IdGrupo,IdLinea) => {
         const gruposFind = gruposChecked.find((item) => { return item.IdGrupo == IdGrupo })
-        console.log(IdLinea)
         if (gruposFind) {
             setgruposChecked((subcategoria) => {
                 return subcategoria.filter((item) => { return item.IdGrupo !== IdGrupo })

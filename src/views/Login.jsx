@@ -57,7 +57,7 @@ export const Login = () => {
                     })
                 }
             } else {
-                console.log(usuario.data.messagge)
+                console.warn(usuario.data.messagge)
             }
         } catch (error) {
             if (error.response.status === 403) {
@@ -130,7 +130,7 @@ export const Login = () => {
                     </button>
                     <span className='block mt-4 text-xl font-medium text-center'>¿No tienes cuenta?</span>
                     <div className='flex items-center justify-center'>
-                        <a href='https://panel.inmodafantasy.com.co/#/clientes/registro' target='_blank' className='font-medium underline cursor-pointer  hover:text-blue-700'>Registrate</a>
+                        <a href='https://panel.inmodafantasy.com.co/#/clientes/registro' target='_blank' className='font-medium underline cursor-pointer hover:text-blue-700'>Registrate</a>
                     </div>
 
                 </section>

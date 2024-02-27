@@ -70,7 +70,6 @@ export const Busquedas = () => {
                 } else {
                     if (data.data == 0) {
                         const { data } = await Axios.get(`productos/buscar/similares?p=${textValueSearch}`)
-                        console.log(data)
                         settextValueSearch(data.data)
                     }
                 }

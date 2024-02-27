@@ -38,6 +38,25 @@ export const Header = ({ setisViewModalProducto, setproducto_Modal, setcarritoTo
 
     }, [])
 
+    useEffect(()=>{
+        validar_tipoPrecio()
+    },[usuario])
+
+    const validar_tipoPrecio = async () => {
+        try {
+            if (usuario) {
+                const usuario_2 = await Axios.post('/login', { idTercero: usuario.StrIdTercero, clave: usuario.StrIdTercero })
+                const data_user = usuario_2.data.data
+                if(usuario.IntPrecio !== data_user.IntPrecio){
+                    setUsuario(data_user)
+                }
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const cerrar_Session = () => {
         localStorage.removeItem("usuario")
         window.location.reload()
@@ -57,8 +76,6 @@ export const Header = ({ setisViewModalProducto, setproducto_Modal, setcarritoTo
             })
         }
     }
-
-
 
     return (
         <section className='relative w-full h-80'>
@@ -88,9 +105,9 @@ export const Header = ({ setisViewModalProducto, setproducto_Modal, setcarritoTo
                             className='w-full p-2 border-2 rounded-full border-blue-800/50'
                         />
                     </div>
-                ):(
+                ) : (
                     <div>
-                        
+
                     </div>
                 )
             }
