@@ -195,7 +195,9 @@ export const Categorias = ({
 
 
     return (
-        <section className={`absolute right-0 xl:left-0 h-auto w-[280px] min-h-[350px] max-h-[600px] overflow-y-scroll py-2 bg-white Scroll-invisible ${isViewModalCategoriasMobile ? "inline" : "hidden"} xl:flex z-20 border-2 border-gray-300`}>
+        <section className={`
+        absolute right-0 h-auto w-[280px] min-h-[350px] max-h-[600px] overflow-y-scroll py-2 bg-white Scroll-invisible ${isViewModalCategoriasMobile ? "inline" : "hidden"} z-20 border-2 border-gray-300
+        xl:left-0 xl:flex xl:sticky xl:top-0`}>
             <div className='w-full text-sm font-medium'>
 
                 {

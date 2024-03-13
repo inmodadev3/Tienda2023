@@ -8,7 +8,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Productos } from '../components/Tienda/Productos'
 import { UsuarioContext } from '../routes/Routers'
 import { Modal_Productos } from '../components/Productos/Modal_Productos'
-import { categoria, default_price, vendedor_externo } from '../routes/QueryParams'
+import { default_price, vendedor_externo } from '../routes/QueryParams'
+import { CiMenuBurger } from "react-icons/ci";
+
 import { Header } from '../components/Header/Header'
 
 
@@ -66,9 +68,9 @@ export const Tienda = () => {
             }
         }
 
-        if(infoInmoda){
+        if (infoInmoda) {
             setisViewInfoInmoda(false)
-        }else{
+        } else {
             setisViewInfoInmoda(true)
         }
 
@@ -126,7 +128,7 @@ export const Tienda = () => {
     const FocusTienda = () => {
         if (titulo_tiendaRef.current) {
             titulo_tiendaRef.current.scrollIntoView({
-                behavior: 'smooth', 
+                behavior: 'smooth',
             });
         }
     }
@@ -253,67 +255,72 @@ export const Tienda = () => {
     return (
         <div className='min-h-screen overflow-x-hidden overflow-y-hidden bg-gradient-to-b from-gray-50 to-gray-200'>
             {/* ENCABEZADO TIENDA */}
-            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} isViewInfoInmoda={isViewInfoInmoda}/>
+            <Header setisViewModalProducto={setisViewModalProducto} setproducto_Modal={setproducto_Modal} setcarritoTotalProductos={setcarritoTotalProductos} isViewInfoInmoda={isViewInfoInmoda} />
 
             {/*FILTROS  */}
             <section className='justify-between block px-4 mt-24 md:flex md:mx-24'>
                 <div className='' ref={titulo_tiendaRef}></div>
                 <div className='flex flex-col w-full xs:w-1/2 md:w-auto'>
-                    <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-blue-700 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all`}>
-                        <p className='w-full font-bold tracking-widest text-center'>Categorias</p>
+                    <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-gradient-to-r from-blue-800 to-blue-500 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all items-center`}>
+                        <span><CiMenuBurger size={30} /></span>
+                        <p className='w-full font-bold tracking-widest text-center'>categorías</p>
                     </div>
                 </div>
             </section>
 
 
             {/* CUERPO DE LA TIENDA */}
-            <div className='relative flex justify-between mx-4 mt-12 mb-20 xl:mx-24'>
-                <div className='relative xl:w-3/12'></div>
+            <div className='relative flex justify-center mx-4 mt-12 mb-20 xl:mx-24 min-h-[600px]'>
 
-                {/* SECCION DE CATEGORIAS */}
-                <Categorias
-                    //VARIABLES O ESTADOS
-                    subCategorias={subCategorias}
-                    subCategoriaSelected={subCategoriaSelected}
-                    isLoadCategorias={isLoadCategorias}
-                    categorias={categorias}
-                    lineasChecked={lineasChecked}
-                    gruposChecked={gruposChecked}
-                    tiposChecked={tiposChecked}
-                    isViewModalCategoriasMobile={isViewModalCategoriasMobile}
-                    //CAMBIAR ESTADOS
-                    setsubCategoriaSelected={setsubCategoriaSelected}
-                    setisLoadCategorias={setisLoadCategorias}
-                    setsubCategorias={setsubCategorias}
-                    setcategorias={setcategorias}
-                    settotal_Productos={settotal_Productos}
-                    setlineasChecked={setlineasChecked}
-                    setgruposChecked={setgruposChecked}
-                    settiposChecked={settiposChecked}
-                    settotal_Paginas={settotal_Paginas}
-                    setarrayProductos={setarrayProductos}
-                    setpagina={setpagina}
-                    //FUNCIONES
-                    Consultar_Total_Productos={Consultar_Total_Productos}
-                />
+                <div className="xl:w-3/12 xl:relative">
+                    {/* SECCION DE CATEGORIAS */}
+                    <Categorias
+                        //VARIABLES O ESTADOS
+                        subCategorias={subCategorias}
+                        subCategoriaSelected={subCategoriaSelected}
+                        isLoadCategorias={isLoadCategorias}
+                        categorias={categorias}
+                        lineasChecked={lineasChecked}
+                        gruposChecked={gruposChecked}
+                        tiposChecked={tiposChecked}
+                        isViewModalCategoriasMobile={isViewModalCategoriasMobile}
+                        //CAMBIAR ESTADOS
+                        setsubCategoriaSelected={setsubCategoriaSelected}
+                        setisLoadCategorias={setisLoadCategorias}
+                        setsubCategorias={setsubCategorias}
+                        setcategorias={setcategorias}
+                        settotal_Productos={settotal_Productos}
+                        setlineasChecked={setlineasChecked}
+                        setgruposChecked={setgruposChecked}
+                        settiposChecked={settiposChecked}
+                        settotal_Paginas={settotal_Paginas}
+                        setarrayProductos={setarrayProductos}
+                        setpagina={setpagina}
+                        //FUNCIONES
+                        Consultar_Total_Productos={Consultar_Total_Productos}
+                    />
+                </div>
 
-                {/* SECCION DE PRODUCTOS */}
-                <Productos
-                    arrayProductos={arrayProductos}
-                    isLoadingProductos={isLoadingProductos}
-                    pagina={pagina}
-                    total_Paginas={total_Paginas}
-                    setpagina={setpagina}
-                    setisViewModalProducto={setisViewModalProducto}
-                    setproducto_Modal={setproducto_Modal}
-                />
+                <div className="xl:w-9/12">
+                    {/* SECCION DE PRODUCTOS */}
+                    <Productos
+                        arrayProductos={arrayProductos}
+                        isLoadingProductos={isLoadingProductos}
+                        pagina={pagina}
+                        total_Paginas={total_Paginas}
+                        setpagina={setpagina}
+                        setisViewModalProducto={setisViewModalProducto}
+                        setproducto_Modal={setproducto_Modal}
+                    />
+                </div>
+
             </div>
 
 
             {isViewModalCategoriasMobile && (<div onClick={() => { setisViewModalCategoriasMobile(false) }} className='fixed top-0 left-0 z-10 w-screen min-h-screen bg-gray-500/40'></div>)}
             {/* BOTON PARA REGRESAR AL HEADER */}
-            <div onClick={FocusTienda} className='fixed p-2 text-white transition-all bg-blue-500 rounded-full cursor-pointer bottom-6 right-2 hover:bg-blue-700'>
-                <span><AiOutlineArrowUp size={32} /></span>
+            <div onClick={FocusTienda} className='fixed p-2 text-white transition-all bg-blue-500 rounded-full cursor-pointer bottom-2 right-2 hover:bg-blue-700 '>
+                <span ><AiOutlineArrowUp size={32} /></span>
             </div>
 
 
