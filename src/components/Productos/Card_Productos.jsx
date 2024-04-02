@@ -107,14 +107,14 @@ export const Card_Productos = ({ producto, setisViewModalProducto, setproducto_M
             {
                 producto.DatFechaFProdHab ? (
                     (moment(Date.now()).diff(moment(producto.DatFechaFProdHab).format('L'), 'days')) < 15 && (
-                        <div className='absolute top-0 right-0 flex items-center w-1/2 px-4 text-white bg-purple-500 gap-x-4 rounded-bl-md rounded-tr-md'>
+                        <div className='absolute top-0 right-0 flex items-center px-4 text-white bg-purple-500 min-w-1/2 gap-x-4 rounded-bl-md rounded-tr-md'>
                             <AiFillStar size={20} color='yellow'/>
                             <span>volvió</span>
                         </div>
                     )
                 ):
                 (moment(Date.now()).diff(moment(producto.DatFechaFProdNuevo).format('L'), 'days')) < 15 && (
-                    <div className='absolute top-0 right-0 flex items-center w-1/2 px-4 text-white bg-blue-500 gap-x-4 rounded-bl-md rounded-tr-md'>
+                    <div className='absolute top-0 right-0 flex items-center px-4 text-white bg-blue-500 min-w-1/2 gap-x-4 rounded-bl-md rounded-tr-md'>
                         <AiFillStar size={20} color='yellow'/>
                         <span>Nuevo</span>
                     </div>
