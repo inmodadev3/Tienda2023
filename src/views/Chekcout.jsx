@@ -183,7 +183,8 @@ export const Chekcout = () => {
                                 telefono: telefono,
                             },
                             seller: querySearchParams.get(vendedor) ? querySearchParams.get(vendedor) : 138,
-                            arrProductos: carrito
+                            arrProductos: carrito,
+                            precioTienda: querySearchParams.get(default_price) ? querySearchParams.get(default_price) : 3
                         })
                         setpedidoIdDB(response.data.data.lastId)
                         toast.success("Pedido enviado correctamente")
