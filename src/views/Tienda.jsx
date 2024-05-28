@@ -12,6 +12,7 @@ import { default_price, vendedor_externo } from '../routes/QueryParams'
 import { CiMenuBurger } from "react-icons/ci";
 
 import { Header } from '../components/Header/Header'
+import { Filtros } from '../components/Tienda/Filtros'
 
 
 export const Tienda = () => {
@@ -19,6 +20,7 @@ export const Tienda = () => {
     const titulo_tiendaRef = useRef(null)
     const url = useLocation()
     const querySearchParams = new URLSearchParams(url.search);
+    const filtroDefault = 'recent'
 
     /* Validacion de carga de la aplicacion */
     /* CARGA Y VISIBILIDAD DE DATOS*/
@@ -26,6 +28,8 @@ export const Tienda = () => {
     const [isViewModalCategoriasMobile, setisViewModalCategoriasMobile] = useState(false)
     const [isLoadingProductos, setisLoadingProductos] = useState(false)
     const [isViewInfoInmoda, setisViewInfoInmoda] = useState(false)
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
 
     /* CATEGORIAS Y SUBCATEGORIAS */
     const [categorias, setcategorias] = useState([])
@@ -49,7 +53,8 @@ export const Tienda = () => {
     const [isViewModalProducto, setisViewModalProducto] = useState(false)
     const [producto_Modal, setproducto_Modal] = useState(null)
 
-    //VALIDAR URLPARAMETROS
+    //FILTRO
+    const [filtro, setfiltro] = useState(filtroDefault)
 
     //DEFINIR EL USUARIO DE LA TIENDA
     useEffect(() => {
@@ -68,13 +73,9 @@ export const Tienda = () => {
             }
         }
 
-        if (infoInmoda) {
-            setisViewInfoInmoda(false)
-        } else {
-            setisViewInfoInmoda(true)
-        }
-
-        Consultar_Total_Productos()
+        setisViewInfoInmoda(!infoInmoda);
+        Consultar_Total_Productos();
+        setIsInitialLoad(false);
     }, [])
 
     //CONSULTAR NUEVOS PRODUCTOS AL CAMBIAR PAGINA
@@ -84,32 +85,57 @@ export const Tienda = () => {
         } else {
             consultar_Productos_Subcategorias(1)
         }
+
     }, [pagina])
+
+    useEffect(() => {
+        if (!isInitialLoad) {
+            setpagina(0);
+            setarrayProductos([]);
+            setTimeout(() => {
+                if (subCategorias == null) {
+                    consultar_Productos_Generales();
+                } else {
+                    consultar_Productos_Subcategorias(1);
+                }
+            }, 0);
+        }
+    }, [filtro]);
 
     //CONSULTAR PRODUCTOS DE CLASES O LINEAS POR PRIMERA VEZ
     useEffect(() => {
-        if (subCategorias !== null) {
-            setarrayProductos(null)
-            consultar_Productos_Subcategorias(1)
-        } else {
-            consultar_Productos_Generales()
+        if (!isInitialLoad) {
+            setfiltro(filtroDefault)
+            if (subCategorias !== null) {
+                setarrayProductos(null)
+                consultar_Productos_Subcategorias(1)
+            } else {
+                consultar_Productos_Generales()
+            }
         }
     }, [subCategorias])
 
     //CONSULTAR SUBCATEGORIAS EN CASO DE SELECCIONAR ALGUNA LINEA GRUPO O TIPO
     useEffect(() => {
-        let timer;
-        if (subCategorias) {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                setpagina(0)
-                consultar_Productos_Subcategorias(1)
-            }, 1000);
+        if (!isInitialLoad) {
+            let timer;
+            if (subCategorias) {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    setpagina(0)
+                    consultar_Productos_Subcategorias(1)
+                    /* setTimeout(() => {
+                        
+                    }, 2000); */
 
+                }, 1000);
+
+            }
+            return () => {
+                clearTimeout(timer);
+            };
         }
-        return () => {
-            clearTimeout(timer);
-        };
+
     }, [lineasChecked, gruposChecked, tiposChecked])
 
 
@@ -137,7 +163,7 @@ export const Tienda = () => {
         try {
             setisLoadingProductos(true)
 
-            const data = await Axios.get(`/productos?pag=${pagina}`)
+            const data = await Axios.get(`/productos?pag=${pagina}&sort=${filtro}`)
             if (data.data.success) {
                 if (arrayProductos !== null) {
                     setarrayProductos((prevData) => {
@@ -179,7 +205,7 @@ export const Tienda = () => {
                 let productos_subcategorias = []
 
                 if (lineasChecked.length !== 0) {
-                    productos_lineas = await Axios.post(`/productos/lineas?pag=${pagina}`, { lineas: lineasChecked })
+                    productos_lineas = await Axios.post(`/productos/lineas?pag=${pagina}&sort=${filtro}`, { lineas: lineasChecked })
                     const data = await Axios.post('/productos/contar/linea', { lineas: lineasChecked });
                     if (data.data.success) {
                         suma += (data.data.Paginas)
@@ -194,7 +220,7 @@ export const Tienda = () => {
 
                 if (gruposChecked.length !== 0) {
                     let arrayGrupos = gruposChecked.map(grupos => grupos.IdGrupo)
-                    productos_grupos = await Axios.post(`/productos/grupos?pag=${pagina}`, { grupos: gruposChecked })
+                    productos_grupos = await Axios.post(`/productos/grupos?pag=${pagina}&sort=${filtro}`, { grupos: gruposChecked })
                     const data = await Axios.post('/productos/contar/grupo', { grupos: arrayGrupos });
                     if (data.data.success) {
                         suma += (data.data.Paginas)
@@ -208,7 +234,7 @@ export const Tienda = () => {
 
                 if (tiposChecked.length !== 0) {
                     let arratipos = tiposChecked.map(tipos => tipos.IdTipo)
-                    productos_tipos = await Axios.post(`/productos/tipos?pag=${pagina}`, { tipos: tiposChecked })
+                    productos_tipos = await Axios.post(`/productos/tipos?pag=${pagina}&sort=${filtro}`, { tipos: tiposChecked })
                     const data = await Axios.post('/productos/contar/tipo', { tipos: arratipos });
                     if (data.data.success) {
                         suma += (data.data.Paginas)
@@ -232,7 +258,7 @@ export const Tienda = () => {
 
             } else {
                 if (subCategorias) {
-                    const data = await Axios.get(`/productos?pag=${pagina}&class=${subCategorias.categoria.StrIdClase}`)
+                    const data = await Axios.get(`/productos?pag=${pagina}&class=${subCategorias.categoria.StrIdClase}&sort=${filtro}`)
                     if (data.data.success) {
                         setarrayProductos((prevData) => {
                             if (prevData) {
@@ -261,10 +287,16 @@ export const Tienda = () => {
             <section className='justify-between block px-4 mt-24 md:flex md:mx-24'>
                 <div className='' ref={titulo_tiendaRef}></div>
                 <div className='flex flex-col w-full xs:w-1/2 md:w-auto'>
+
+
                     <div onClick={() => { setisViewModalCategoriasMobile(!isViewModalCategoriasMobile) }} className={`flex my-2 px-4 xl:hidden w-full bg-gradient-to-r from-blue-800 to-blue-500 text-white py-2 cursor-pointer rounded hover:bg-blue-700 transition-all items-center`}>
                         <span><CiMenuBurger size={30} /></span>
                         <p className='w-full font-bold tracking-widest text-center'>categorías</p>
                     </div>
+                    <Filtros
+                        filtro={filtro}
+                        setfiltro={setfiltro}
+                    />
                 </div>
             </section>
 
