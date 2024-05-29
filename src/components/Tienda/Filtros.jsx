@@ -12,7 +12,7 @@ export const Filtros = ({ filtro, setfiltro }) => {
 
 
     return (
-        <div className='flex items-center gap-x-1'>
+        <div className='flex items-center justify-center px-4 py-2 bg-gray-200 rounded gap-x-1'>
             <label
                 htmlFor="sort-select"
                 className='cursor-pointer'
@@ -21,7 +21,7 @@ export const Filtros = ({ filtro, setfiltro }) => {
             </label>
             <select
                 id="sort-select"
-                className='font-bold tracking-wide bg-transparent outline-none'
+                className='font-bold tracking-wide bg-transparent outline-none [&>option]:text-black underline'
                 value={filtro}
                 onChange={manejarCambioFiltro}
             >
